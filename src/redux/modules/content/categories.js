@@ -1,12 +1,12 @@
-const LOAD = 'content/posts/LOAD';
-const LOAD_SUCCESS = 'content/posts/LOAD_SUCCESS';
-const LOAD_FAIL = 'content/posts/LOAD_FAIL';
+const LOAD = 'content/categories/LOAD';
+const LOAD_SUCCESS = 'content/categories/LOAD_SUCCESS';
+const LOAD_FAIL = 'content/categories/LOAD_FAIL';
 
 const initialState = {
   loaded: false
 };
 
-export default function posts(state = initialState, action = {}) {
+export default function categories(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {
@@ -33,15 +33,15 @@ export default function posts(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.posts && globalState.posts.loaded;
+  return globalState.categories && globalState.categories.loaded;
 }
 
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     contentApi: (client) => {
-      console.log('ContentApi request to /post', client);
-      return client.get('/api/post');
+      console.log('ContentApi request to /category', client);
+      return client.get('/api/postcategory');
     }
   };
 }
