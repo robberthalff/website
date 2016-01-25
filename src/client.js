@@ -15,15 +15,23 @@ import {reduxReactRouter, ReduxRouter} from 'redux-router';
 import getRoutes from './routes';
 import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 
-const client = new ApiClient();
+const clients = {
+  website: new ApiClient(null, {
+    host: __API_WEBSITE_HOST__,
+    port: __API_WEBSITE_PORT__
+  }),
+  content: new ApiClient(null, {
+    host: __API_CONTENT_HOST__,
+    port: __API_CONTENT_PORT__
+  })
+};
 
 // Three different types of scroll behavior available.
 // Documented here: https://github.com/rackt/scroll-behavior
 const scrollableHistory = useScroll(createHistory);
 
 const dest = document.getElementById('content');
-const store = createStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), scrollableHistory, client, window.__data);
-
+const store = createStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), scrollableHistory, clients, window.__data);
 function initSocket() {
   const socket = io('', {path: '/ws'});
   socket.on('news', (data) => {

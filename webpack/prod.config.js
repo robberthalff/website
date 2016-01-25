@@ -6,6 +6,7 @@ var webpack = require('webpack');
 var CleanPlugin = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var strip = require('strip-loader');
+var config = require('../src/config')
 
 var projectRootPath = path.resolve(__dirname, '../');
 var assetsPath = path.resolve(projectRootPath, './static/dist');
@@ -61,7 +62,11 @@ module.exports = {
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: false,
-      __DEVTOOLS__: false
+      __DEVTOOLS__: false,
+      __API_WEBSITE_HOST__: JSON.stringify(config.api.website.host),
+      __API_WEBSITE_PORT__: JSON.stringify(config.api.website.port),
+      __API_CONTENT_HOST__: JSON.stringify(config.api.content.host),
+      __API_CONTENT_PORT__: JSON.stringify(config.api.content.port)
     }),
 
     // ignore dev config

@@ -1,16 +1,10 @@
 import superagent from 'superagent';
-import config from '../config';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
-function formatUrl(path) {
+function formatUrl(path, config) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
-  if (__SERVER__) {
-    // Prepend host and port of the API server to the path.
-    return 'http://' + config.apiHost + ':' + config.apiPort + adjustedPath;
-  }
-  // Prepend `/api` to relative URL, to proxy to API server.
-  return '/api' + adjustedPath;
+  return 'http://' + config.host + ':' + config.port + adjustedPath;
 }
 
 /*
@@ -20,10 +14,10 @@ function formatUrl(path) {
  * Remove it at your own risk.
  */
 class _ApiClient {
-  constructor(req) {
+  constructor(req, config) {
     methods.forEach((method) =>
       this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
-        const request = superagent[method](formatUrl(path));
+        const request = superagent[method](formatUrl(path, config));
 
         if (params) {
           request.query(params);

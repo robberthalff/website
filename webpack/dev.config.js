@@ -2,12 +2,13 @@ require('babel/polyfill');
 
 // Webpack config for development
 var fs = require('fs');
+var config = require('../src/config');
 var path = require('path');
 var webpack = require('webpack');
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var host = (process.env.HOST || 'localhost');
-var port = parseInt(process.env.PORT) + 1 || 3001;
+var port = parseInt(process.env.PORT) || 4545;
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -92,8 +93,13 @@ module.exports = {
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+      __DEVTOOLS__: true,  // <-------- DISABLE redux-devtools HERE
+      __API_WEBSITE_HOST__: JSON.stringify(config.api.website.host),
+      __API_WEBSITE_PORT__: JSON.stringify(config.api.website.port),
+      __API_CONTENT_HOST__: JSON.stringify(config.api.content.host),
+      __API_CONTENT_PORT__: JSON.stringify(config.api.content.port)
     }),
     webpackIsomorphicToolsPlugin.development()
   ]
 };
+

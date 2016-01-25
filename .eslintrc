@@ -32,6 +32,10 @@
     "__SERVER__": true,
     "__DISABLE_SSR__": true,
     "__DEVTOOLS__": true,
+    "__API_WEBSITE_HOST__": true,
+    "__API_WEBSITE_PORT__": true,
+    "__API_CONTENT_HOST__": true,
+    "__API_CONTENT_PORT__": true,
     "socket": true,
     "webpackIsomorphicTools": true
   }

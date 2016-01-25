@@ -20,7 +20,7 @@ import qs from 'query-string';
 import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 
-const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
+const targetUrl = 'http://' + config.api.website.host + ':' + config.api.website.port;
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
@@ -67,9 +67,12 @@ app.use((req, res) => {
     // hot module replacement is enabled in the development env
     webpackIsomorphicTools.refresh();
   }
-  const client = new ApiClient(req);
+  const clients = {
+    website: new ApiClient(req, config.api.website),
+    content: new ApiClient(req, config.api.content)
+  }
 
-  const store = createStore(reduxReactRouter, getRoutes, createHistory, client);
+  const store = createStore(reduxReactRouter, getRoutes, createHistory, clients);
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
@@ -125,7 +128,8 @@ if (config.port) {
     if (err) {
       console.error(err);
     }
-    console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort);
+    console.info('----\n==> ✅  %s is running, talking to Website API server on port %s.', config.app.title, config.api.website.port);
+    console.info('----\n==> ✅  talking to Content API server %s on port %s.', config.api.content.host, config.api.content.port);
     console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
   });
 } else {

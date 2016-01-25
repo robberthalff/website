@@ -56,13 +56,13 @@ const bufferSize = 100;
 const messageBuffer = new Array(bufferSize);
 let messageIndex = 0;
 
-if (config.apiPort) {
-  const runnable = app.listen(config.apiPort, (err) => {
+if (config.api.website.port) {
+  const runnable = app.listen(config.api.website.port, (err) => {
     if (err) {
       console.error(err);
     }
-    console.info('----\n==> 🌎  API is running on port %s', config.apiPort);
-    console.info('==> 💻  Send requests to http://%s:%s', config.apiHost, config.apiPort);
+    console.info('----\n==> 🌎  API is running on port %s', config.api.website.port);
+    console.info('==> 💻  Send requests to http://%s:%s', config.api.website.host, config.api.website.port);
   });
 
   io.on('connection', (socket) => {
