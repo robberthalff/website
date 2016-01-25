@@ -56,7 +56,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {user} = this.props;
+    // const {user} = this.props;
     const styles = require('./App.scss');
 
     return (
