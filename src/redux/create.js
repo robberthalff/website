@@ -2,8 +2,13 @@ import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import createMiddleware from './middleware/clientMiddleware';
 import transitionMiddleware from './middleware/transitionMiddleware';
 
-export default function createStore(reduxReactRouter, getRoutes, createHistory, client, data) {
-  const middleware = [createMiddleware(client), transitionMiddleware];
+export default function createStore(reduxReactRouter, getRoutes, createHistory, clients, data) {
+  // this middleware makes the clients available to the promise:
+  const middleware = [
+    createMiddleware(clients.website, 'websiteApi'),
+    createMiddleware(clients.content, 'contentApi'),
+    transitionMiddleware
+  ];
 
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
