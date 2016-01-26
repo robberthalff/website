@@ -49,9 +49,9 @@ export default (store) => {
       </Route>
 
       { /* Routes */ }
-      <Route path="blog" component={Blog}>
-        <Route path="post/:id" component={BlogPost}/>
-      </Route>
+      <Route path="blog" component={Blog} />
+      <Route path="blog/post/:id" component={BlogPost}/>
+      <Route path="blog/post/:key/:id" component={BlogPost}/>
       <Route path="projects" component={Projects}/>
       <Route path="about" component={About}/>
       <Route path="login" component={Login}/>

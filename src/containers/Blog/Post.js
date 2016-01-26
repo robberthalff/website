@@ -1,7 +1,7 @@
 // import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {load as loadPost } from 'redux/modules/content/posts';
+import {load as loadPost } from 'redux/modules/content/post';
 import {load as loadCategories } from 'redux/modules/content/categories';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
@@ -20,6 +20,7 @@ import marked from 'marked';
 export default class BlogPost extends Component {
   static propTypes = {
     post: PropTypes.object,
+    params: PropTypes.object,
     categories: PropTypes.array,
     loadPost: PropTypes.func.isRequired,
     loadCategories: PropTypes.func.isRequired
@@ -35,8 +36,8 @@ export default class BlogPost extends Component {
   }
 
   loadIt = () => {
-    if (this.props.post.key) {
-      this.props.loadPost(this.props.post.key);
+    if (this.props.params.id) {
+      this.props.loadPost(this.props.params.id);
     }
     this.props.loadCategories();
   }
