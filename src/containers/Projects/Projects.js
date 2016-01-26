@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 // import { Link } from 'react-router';
 import { GithubButton } from 'components';
 import { Row } from 'react-bootstrap';
-import config from '../../config';
 import Helmet from 'react-helmet';
 
 export default class Projects extends Component {
@@ -39,8 +38,6 @@ export default class Projects extends Component {
 
   render() {
     const styles = require('./Projects.scss');
-    // require the logo image both from client and server
-    const logoImage = require('./logo.png');
     return (
       <div className={styles.home}>
         <Helmet title="Home"/>
@@ -48,11 +45,9 @@ export default class Projects extends Component {
           <div className="container">
             <div className={styles.logo}>
               <p>
-                <img src={logoImage}/>
               </p>
             </div>
-            <h1>{config.app.title}</h1>
-            <h2>{config.app.description}</h2>
+            <h1>Projects</h1>
             <p>
               <a className={styles.github} href="https://github.com/rhalff" target="_blank">
                 <i className="fa fa-github"/> View on Github
