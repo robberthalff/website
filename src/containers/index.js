@@ -1,5 +1,6 @@
 export App from './App/App';
 export Blog from './Blog/Blog';
+export BlogPost from './Blog/Post';
 export Projects from './Projects/Projects';
 export Chat from './Chat/Chat';
 export Home from './Home/Home';

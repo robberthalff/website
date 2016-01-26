@@ -61,10 +61,10 @@ export default class Blog extends Component {
           <article className="media" key={nr}>
             <Row>
               <Col xs={2} md={2}>
-                <Thumbnail href={`/blog/post/${item.name}`} src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
+                <Thumbnail href={`/blog/post/${item.key}`} src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
               </Col>
               <Col xs={10} md={10}>
-                <h3 className="media-heading"><a href={`/blog/post/${item.name}`}>{item.name}</a></h3>
+                <h3 className="media-heading"><a href={`/blog/post/${item.key}`}>{item.name}</a></h3>
                 <p className="text-muted text-small">
                   <time>January 21st, 2016</time> <span>by A B</span>
                 </p>
