@@ -18,11 +18,13 @@ import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 const clients = {
   website: new ApiClient(null, {
     host: __API_WEBSITE_HOST__,
-    port: __API_WEBSITE_PORT__
+    port: __API_WEBSITE_PORT__,
+    secure: !(__DEVELOPMENT__)
   }),
   content: new ApiClient(null, {
     host: __API_CONTENT_HOST__,
-    port: __API_CONTENT_PORT__
+    port: __API_CONTENT_PORT__,
+    secure: !(__DEVELOPMENT__)
   })
 };
 

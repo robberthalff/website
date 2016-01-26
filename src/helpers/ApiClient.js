@@ -4,7 +4,12 @@ const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function formatUrl(path, config) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
-  return 'http://' + config.host + ':' + config.port + adjustedPath;
+  return [
+    config.secure ? 'https://' : 'http://',
+    config.host,
+    config.port === '80' ? '' : ':' + config.port,
+    adjustedPath
+  ].join('');
 }
 
 /*
