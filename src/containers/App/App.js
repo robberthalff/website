@@ -98,9 +98,13 @@ export default class App extends Component {
           {this.props.children}
         </div>
 
-        <div className="well text-center">
-          <a href="https://github.com/rhalff" target="_blank">RobbertHalff</a>
-        </div>
+        <Navbar fixedBottom>
+          <Navbar.Header>
+            <div className="text-center">
+              <a href="https://github.com/rhalff" target="_blank">RobbertHalff</a>
+            </div>
+          </Navbar.Header>
+        </Navbar>
       </div>
     );
   }

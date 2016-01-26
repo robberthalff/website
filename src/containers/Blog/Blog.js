@@ -1,4 +1,3 @@
-// import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {load as loadPosts } from 'redux/modules/content/posts';
@@ -6,6 +5,7 @@ import {load as loadCategories } from 'redux/modules/content/categories';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 import {Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
+import {Link} from 'react-router';
 import marked from 'marked';
 // import { MiniInfoBar } from 'components';
 
@@ -45,7 +45,7 @@ export default class Blog extends Component {
       return this.props.categories.map((item, nr) => {
         return (
           <li role="presentation" key={nr}>
-            <a href="/blog/{item.key}">{item.name} <span className="badge pull-right">{item.count || 9999}</span></a>
+            <Link to={`/blog/${item.key}`}>{item.name} <span className="badge pull-right">{item.count || 9999}</span></Link>
           </li>
         );
       });
@@ -64,7 +64,7 @@ export default class Blog extends Component {
                 <Thumbnail href={`/blog/post/${item.key}/${item._id}`} src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
               </Col>
               <Col xs={10} md={10}>
-                <h3 className="media-heading"><a href={`/blog/post/${item.key}/${item._id}`}>{item.name}</a></h3>
+                <h3 className="media-heading"><Link to={`/blog/post/${item.key}/${item._id}`}>{item.name}</Link></h3>
                 <p className="text-muted text-small">
                   <time>January 21st, 2016</time> <span>by A B</span>
                 </p>

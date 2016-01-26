@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 // import { Link } from 'react-router';
-import { GithubButton } from 'components';
-import { Row } from 'react-bootstrap';
+import GithubRepository from './GithubRepository';
 import Helmet from 'react-helmet';
 
 export default class Projects extends Component {
@@ -9,24 +8,24 @@ export default class Projects extends Component {
     projects: PropTypes.array
   };
 
+  static defaultProps = {
+    projects: [
+      {username: 'rhalff', repository: 'dot-object'},
+      {username: 'rhalff', repository: 'objenv'},
+      {username: 'rhalff', repository: 'iffi'},
+      {username: 'rhalff', repository: 'confert'},
+      {username: 'rhalff', repository: 'diagres'},
+      {username: 'rhalff', repository: 'dompointer'},
+      {username: 'rhalff', repository: 'object-view'},
+      {username: 'rhalff', repository: 'teflon'}
+    ]
+  };
+
   renderProjects() {
     if (this.props.projects) {
-      return this.props.projects.map(() => {
+      return this.props.projects.map((project) => {
         return (
-          <Row>
-            <GithubButton user="rhalff"
-                          repo="dot-object"
-                          type="star"
-                          width={160}
-                          height={30}
-                          count large/>
-            <GithubButton user="rhalff"
-                          repo="dot-object"
-                          type="fork"
-                          width={160}
-                          height={30}
-                          count large/>
-          </Row>
+          <GithubRepository {...project} />
         );
       });
     }
@@ -62,3 +61,4 @@ export default class Projects extends Component {
     );
   }
 }
+
