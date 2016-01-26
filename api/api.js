@@ -6,6 +6,7 @@ import * as actions from './actions/index';
 import {mapUrl} from 'utils/url.js';
 import PrettyError from 'pretty-error';
 import http from 'http';
+import cors from 'cors';
 import SocketIo from 'socket.io';
 
 const pretty = new PrettyError();
@@ -15,6 +16,8 @@ const server = new http.Server(app);
 
 const io = new SocketIo(server);
 io.path('/ws');
+
+app.use(cors());
 
 app.use(session({
   secret: 'react and redux rule!!!!',
