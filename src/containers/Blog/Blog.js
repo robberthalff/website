@@ -80,6 +80,30 @@ export default class Blog extends Component {
     );
   }
 
+  renderShowing = () => {
+    const {posts} = this.props;
+    if (posts && posts.length > 10) {
+      return (
+        <div className="lead text-muted">Showing <strong>1</strong> to <strong>10</strong> of <strong>273</strong> posts</div>
+      );
+    }
+    return null;
+  }
+
+  renderPagination = () => {
+    const {posts} = this.props;
+    if (posts && posts.length > 10) {
+      return (
+        <Pagination
+        bsSize="small"
+        items={10}
+        activePage={this.state.activePage}
+        onSelect={this.handleSelect} />
+      );
+    }
+    return null;
+  }
+
   render() {
     return (
       <div className="container">
@@ -90,15 +114,11 @@ export default class Blog extends Component {
         </p>
         <Row>
           <Col xs={8} md={8}>
-            <div className="lead text-muted">Showing <strong>1</strong> to <strong>10</strong> of <strong>273</strong> posts</div>
+            {this.renderShowing()}
             <div className="blog">
               {this.renderBlogPosts()}
             </div>
-            <Pagination
-              bsSize="small"
-              items={10}
-              activePage={this.state.activePage}
-              onSelect={this.handleSelect} />
+            {this.renderPagination()}
           </Col>
           <Col xs={4} md={4}>
               <div className="lead text-muted">Categories</div>
