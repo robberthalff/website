@@ -11,6 +11,8 @@ EXPOSE 8080
 WORKDIR /app
 COPY . /app
 
+RUN ["npm", "install", "phantomjs", "-g"]
+
 RUN ["npm", "install"]
 
 RUN ["npm", "run", "build"]
