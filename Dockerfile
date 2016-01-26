@@ -1,7 +1,5 @@
 FROM node:5.5-slim
 
-ENV NODE_ENV production
-
 ENV CONTENT_HOST localhost
 ENV CONTENT_PORT 3000
 ENV API_HOST localhost
@@ -14,5 +12,7 @@ WORKDIR /app
 COPY . /app
 
 RUN ["npm", "install"]
+
+RUN ["npm", "run", "build"]
 
 CMD ["npm", "run", "start"]
