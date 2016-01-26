@@ -11,6 +11,8 @@ EXPOSE 8080
 WORKDIR /app
 COPY . /app
 
+RUN apt-get install -y wget libfreetype6 libfontconfig bzip2
+
 RUN ["npm", "install", "phantomjs", "-g"]
 
 RUN ["npm", "install"]
