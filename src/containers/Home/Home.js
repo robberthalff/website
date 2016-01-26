@@ -20,19 +20,12 @@ export default class Home extends Component {
               </p>
             </div>
             <h1>{config.app.title}</h1>
-
             <h2>{config.app.description}</h2>
-
             <p>
               <a className={styles.github} href="https://github.com/rhalff" target="_blank"> </a>
             </p>
-
-            <p className={styles.humility}>
-              Created and maintained by <a href="https://twitter.com/erikras" target="_blank">@erikras</a>.
-            </p>
           </div>
         </div>
-
         <div className="container">
         </div>
       </div>

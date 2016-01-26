@@ -1,10 +1,42 @@
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
 // import { Link } from 'react-router';
 import { GithubButton } from 'components';
+import { Row } from 'react-bootstrap';
 import config from '../../config';
 import Helmet from 'react-helmet';
 
 export default class Projects extends Component {
+  static propTypes = {
+    projects: PropTypes.array
+  };
+
+  renderProjects() {
+    if (this.props.projects) {
+      return this.props.projects.map(() => {
+        return (
+          <Row>
+            <GithubButton user="rhalff"
+                          repo="dot-object"
+                          type="star"
+                          width={160}
+                          height={30}
+                          count large/>
+            <GithubButton user="rhalff"
+                          repo="dot-object"
+                          type="fork"
+                          width={160}
+                          height={30}
+                          count large/>
+          </Row>
+        );
+      });
+    }
+
+    return (
+      <p>No Projects loaded from Github</p>
+    );
+  }
+
   render() {
     const styles = require('./Projects.scss');
     // require the logo image both from client and server
@@ -26,23 +58,10 @@ export default class Projects extends Component {
                 <i className="fa fa-github"/> View on Github
               </a>
             </p>
-            <GithubButton user="rhalff"
-                          repo="dot-object"
-                          type="star"
-                          width={160}
-                          height={30}
-                          count large/>
-            <GithubButton user="rhalff"
-                          repo="dot-object"
-                          type="fork"
-                          width={160}
-                          height={30}
-                          count large/>
           </div>
         </div>
-
         <div className="container">
-          .... Projects
+          {this.renderProjects()}
         </div>
       </div>
     );

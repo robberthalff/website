@@ -86,7 +86,6 @@ export default class Blog extends Component {
         <h1>Blog</h1>
         <Helmet title="Blog"/>
         <p>
-          HERE COMES THE BLOG
           <button className="btn btn-primary" onClick={this.loadIt}>Reload from server</button>
         </p>
         <Row>
