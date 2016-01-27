@@ -9,7 +9,6 @@ import Comments from './Comments';
 import Categories from './Categories';
 import marked from 'marked';
 import hjs from 'highlight.js';
-import styles from './Post.scss';
 
 import 'highlight.js/styles/monokai-sublime.css';
 
@@ -86,6 +85,7 @@ export default class BlogPost extends Component {
   }
 
   render() {
+    const styles = require('./Post.scss');
     const {post = {}} = this.props;
     return (
       <div className={styles.blogPost}>

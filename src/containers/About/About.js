@@ -8,14 +8,17 @@ export default class About extends Component {
   };
 
   render() {
+    const styles = require('./About.scss');
     return (
+      <div className={styles.about}>
         <div className="container">
           <Well>
-          <h1>About</h1>
-          <Helmet title="About"/>
-          <MiniInfoBar/>
+            <h1>About</h1>
+            <Helmet title="About"/>
+            <MiniInfoBar/>
           </Well>
         </div>
+      </div>
     );
   }
 }
