@@ -6,6 +6,7 @@ import {load as loadCategories } from 'redux/modules/content/categories';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 import {Thumbnail, Row, Col} from 'react-bootstrap';
+import Comments from './Comments';
 import marked from 'marked';
 import hjs from 'highlight.js';
 import styles from './Post.scss';
@@ -110,6 +111,9 @@ export default class BlogPost extends Component {
                 {this.renderCategories()}
               </ul>
             </Col>
+          </Row>
+          <Row>
+            <Comments />
           </Row>
         </div>
       </div>
