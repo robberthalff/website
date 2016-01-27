@@ -47,7 +47,7 @@ export default class Projects extends Component {
               <p>
               </p>
             </div>
-            <h1>Projects</h1>
+            <h1>SourceCode</h1>
             <p>
               <a className={styles.github} href="https://github.com/rhalff" target="_blank">
                 <i className="fa fa-github"/> View on Github

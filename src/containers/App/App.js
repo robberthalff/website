@@ -79,7 +79,7 @@ export default class App extends Component {
               </LinkContainer>
 
               <LinkContainer to="/projects">
-                <NavItem eventKey={2}>Projects</NavItem>
+                <NavItem eventKey={2}>SourceCode</NavItem>
               </LinkContainer>
 
               <LinkContainer to="/about">
