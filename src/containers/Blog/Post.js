@@ -90,7 +90,6 @@ export default class BlogPost extends Component {
     return (
       <div className={styles.blogPost}>
         <div className="container">
-          <h1>{post.name}</h1>
           <Helmet title={post.name}/>
           <Row>
             <Col xs={8} md={8}>

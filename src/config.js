@@ -26,9 +26,9 @@ module.exports = Object.assign({
     title: 'RobbertHalff',
     description: 'If I don\'t see you no more in this world, I\'ll meet you on the next one.',
     head: {
-      titleTemplate: 'React Redux Example: %s',
+      titleTemplate: 'RobbertHalff: %s',
       meta: [
-        {name: 'description', content: 'All the modern best practices in one example.'},
+        {name: 'description', content: 'All the modern best practices inside one person :p'},
         {charset: 'utf-8'},
         {property: 'og:site_name', content: 'RobbertHalff'},
         {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
@@ -39,7 +39,7 @@ module.exports = Object.assign({
         {property: 'og:site', content: '@rhalff'},
         {property: 'og:creator', content: '@rhalff'},
         {property: 'og:title', content: 'RobbertHalff'},
-        {property: 'og:description', content: 'All the modern best practices in one example.'},
+        {property: 'og:description', content: 'All the modern best practices in one person :p'},
         {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
         {property: 'og:image:width', content: '200'},
         {property: 'og:image:height', content: '200'}
