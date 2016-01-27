@@ -1,29 +1,24 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {load as loadPosts } from 'redux/modules/content/posts';
-import {load as loadCategories } from 'redux/modules/content/categories';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
-import {Well, Panel, Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
+import {Well, Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
 import {Link} from 'react-router';
 import marked from 'marked';
-// import { MiniInfoBar } from 'components';
+import Categories from './Categories';
 
 @connect(
   state => ({
-    posts: state.posts.data,
-    categories: state.categories.data
+    posts: state.posts.data
   }),
   dispatch => bindActionCreators({
-    loadPosts: loadPosts,
-    loadCategories: loadCategories
+    loadPosts: loadPosts
   }, dispatch))
 export default class Blog extends Component {
   static propTypes = {
     posts: PropTypes.array,
-    categories: PropTypes.array,
-    loadPosts: PropTypes.func.isRequired,
-    loadCategories: PropTypes.func.isRequired
+    loadPosts: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -37,23 +32,8 @@ export default class Blog extends Component {
 
   loadIt = () => {
     this.props.loadPosts();
-    this.props.loadCategories();
   }
 
-  renderCategories = () => {
-    if (this.props.categories) {
-      return this.props.categories.map((item, nr) => {
-        return (
-          <li role="presentation" key={nr}>
-            <Link to={`/blog/${item.key}`}>{item.name} <span className="badge pull-right">{item.count || 9999}</span></Link>
-          </li>
-        );
-      });
-    }
-    return (
-      <p>No Categories available.</p>
-    );
-  }
   renderBlogPosts = () => {
     if (this.props.posts) {
       return this.props.posts.map((item, nr) => {
@@ -118,8 +98,8 @@ export default class Blog extends Component {
             </p>
           </div>
         </div>
-          <Well>
             <div className="container">
+              <Well>
           <Row>
             <Col xs={8} md={8}>
               {this.renderShowing()}
@@ -129,20 +109,14 @@ export default class Blog extends Component {
               {this.renderPagination()}
             </Col>
             <Col xs={4} md={4}>
-              <Panel>
-                <div className="lead text-muted">Categories</div>
-                <ul className="nav nav-pills nav-stacked">
-                  <li><a href="/blog">All</a></li>
-                  {this.renderCategories()}
-                </ul>
-              </Panel>
+              <Categories />
             </Col>
           </Row>
           <p>
             <button className="btn btn-primary" onClick={this.loadIt}>Reload from server</button>
           </p>
+              </Well>
         </div>
-          </Well>
       </div>
     );
   }

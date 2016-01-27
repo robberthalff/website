@@ -55,11 +55,13 @@ export default class Projects extends Component {
             </p>
           </div>
         </div>
-          <Well>
-            <div className="container clearfix">
+            <div className="container">
+              <Well>
+                <div className="clearfix">
             {this.renderProjects()}
+                </div>
+              </Well>
             </div>
-          </Well>
       </div>
     );
   }

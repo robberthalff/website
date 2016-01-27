@@ -2,11 +2,11 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {load as loadPost } from 'redux/modules/content/post';
-import {load as loadCategories } from 'redux/modules/content/categories';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
-import {Thumbnail, Row, Col} from 'react-bootstrap';
+import {Well, Thumbnail, Row, Col} from 'react-bootstrap';
 import Comments from './Comments';
+import Categories from './Categories';
 import marked from 'marked';
 import hjs from 'highlight.js';
 import styles from './Post.scss';
@@ -20,20 +20,16 @@ marked.setOptions({
 
 @connect(
   state => ({
-    post: state.post.data,
-    categories: state.categories.data
+    post: state.post.data
   }),
   dispatch => bindActionCreators({
-    loadPost: loadPost,
-    loadCategories: loadCategories
+    loadPost: loadPost
   }, dispatch))
 export default class BlogPost extends Component {
   static propTypes = {
     post: PropTypes.object,
     params: PropTypes.object,
-    categories: PropTypes.array,
-    loadPost: PropTypes.func.isRequired,
-    loadCategories: PropTypes.func.isRequired
+    loadPost: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -49,23 +45,8 @@ export default class BlogPost extends Component {
     if (this.props.params.id) {
       this.props.loadPost(this.props.params.id);
     }
-    this.props.loadCategories();
   }
 
-  renderCategories = () => {
-    if (this.props.categories) {
-      return this.props.categories.map((item, nr) => {
-        return (
-          <li role="presentation" key={nr}>
-            <a href="/blog/{item.key}">{item.name} <span className="badge pull-right">{item.count || 9999}</span></a>
-          </li>
-        );
-      });
-    }
-    return (
-      <p>No Categories available.</p>
-    );
-  }
   renderBlogPost = () => {
     const item = this.props.post;
     if (item) {
@@ -100,16 +81,14 @@ export default class BlogPost extends Component {
           <Helmet title={post.name}/>
           <Row>
             <Col xs={8} md={8}>
+              <Well>
               <div className="blog">
                 {this.renderBlogPost()}
               </div>
+              </Well>
             </Col>
             <Col xs={4} md={4}>
-              <div className="lead text-muted">Categories</div>
-              <ul className="nav nav-pills nav-stacked">
-                <li><a href="/blog">All</a></li>
-                {this.renderCategories()}
-              </ul>
+              <Categories />
             </Col>
           </Row>
           <Row>

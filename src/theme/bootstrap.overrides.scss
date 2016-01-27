@@ -14,3 +14,17 @@
   color: #33e0ff;
   background-color: transparent;
 }
+
+body {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-width: 768px;
+  line-height: 1.5;
+  background-attachment: fixed;
+  @include gradient-striped($gray-dark, 15deg);
+}
+
