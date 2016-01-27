@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 // import { Link } from 'react-router';
 import GithubRepository from './GithubRepository';
+import {Well} from 'react-bootstrap';
 import Helmet from 'react-helmet';
 
 export default class Projects extends Component {
@@ -54,9 +55,11 @@ export default class Projects extends Component {
             </p>
           </div>
         </div>
-        <div className="container">
-          {this.renderProjects()}
-        </div>
+          <Well>
+            <div className="container clearfix">
+            {this.renderProjects()}
+            </div>
+          </Well>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import {load as loadPosts } from 'redux/modules/content/posts';
 import {load as loadCategories } from 'redux/modules/content/categories';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
-import {Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
+import {Well, Panel, Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
 import {Link} from 'react-router';
 import marked from 'marked';
 // import { MiniInfoBar } from 'components';
@@ -105,29 +105,44 @@ export default class Blog extends Component {
   }
 
   render() {
+    const styles = require('./Blog.scss');
+    const logoImage = require('./logo.png');
     return (
-      <div className="container">
-        <h1>Blog</h1>
+      <div className={styles.blog}>
         <Helmet title="Blog"/>
-        <p>
-          <button className="btn btn-primary" onClick={this.loadIt}>Reload from server</button>
-        </p>
-        <Row>
-          <Col xs={8} md={8}>
-            {this.renderShowing()}
-            <div className="blog">
-              {this.renderBlogPosts()}
-            </div>
-            {this.renderPagination()}
-          </Col>
-          <Col xs={4} md={4}>
-              <div className="lead text-muted">Categories</div>
-              <ul className="nav nav-pills nav-stacked">
-                <li><a href="/blog">All</a></li>
-                {this.renderCategories()}
-              </ul>
-          </Col>
-        </Row>
+        <div className={styles.masthead}>
+          <div className="container">
+            <h1>Blog</h1>
+            <p>
+              <img src={logoImage} />
+            </p>
+          </div>
+        </div>
+          <Well>
+            <div className="container">
+          <Row>
+            <Col xs={8} md={8}>
+              {this.renderShowing()}
+              <div className="blog">
+                {this.renderBlogPosts()}
+              </div>
+              {this.renderPagination()}
+            </Col>
+            <Col xs={4} md={4}>
+              <Panel>
+                <div className="lead text-muted">Categories</div>
+                <ul className="nav nav-pills nav-stacked">
+                  <li><a href="/blog">All</a></li>
+                  {this.renderCategories()}
+                </ul>
+              </Panel>
+            </Col>
+          </Row>
+          <p>
+            <button className="btn btn-primary" onClick={this.loadIt}>Reload from server</button>
+          </p>
+        </div>
+          </Well>
       </div>
     );
   }
