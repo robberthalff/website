@@ -1,0 +1,12 @@
+.log {
+  width: 350px;
+  height: 350px;
+  border: 1px solid silver;
+  padding: 2px;
+  overflow-y: hidden;
+  background-color: black;
+  margin-top: 1em;
+  p {
+    font-size: 8px;
+  }
+}

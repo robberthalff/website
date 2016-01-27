@@ -20,6 +20,7 @@ import qs from 'query-string';
 import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 
+
 const targetUrl = 'http://' + config.api.website.host + ':' + config.api.website.port;
 const pretty = new PrettyError();
 const app = new Express();
@@ -28,6 +29,19 @@ const proxy = httpProxy.createProxyServer({
   target: targetUrl,
   ws: true
 });
+
+//
+import axon from 'axon';
+const sock = axon.socket('pub-emitter');
+sock.connect(5000);
+import {getLogObject} from 'simple-express-json-logger';
+app.use((req, res, next) => {
+  sock.emit('log:message',
+    getLogObject(req, res, process.hrtime(), { tags: null, loggedFromEnv: null })
+  );
+  next();
+});
+//
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));

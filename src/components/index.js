@@ -8,3 +8,4 @@
 export GithubButton from './GithubButton/GithubButton';
 export InfoBar from './InfoBar/InfoBar';
 export MiniInfoBar from './MiniInfoBar/MiniInfoBar';
+export LogWindow from './LogWindow/LogWindow';

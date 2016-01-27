@@ -14,6 +14,10 @@ const app = express();
 
 const server = new http.Server(app);
 
+import axon from 'axon';
+const sock = axon.socket('sub-emitter');
+sock.bind(5000);
+
 const io = new SocketIo(server);
 io.path('/ws');
 
@@ -68,10 +72,24 @@ if (config.api.website.port) {
     console.info('==> 💻  Send requests to http://%s:%s', config.api.website.host, config.api.website.port);
   });
 
+  const sockets = [];
+  sock.on('log:*', (action, payload) => {
+    console.log(payload);
+    payload.id = messageIndex;
+    messageBuffer[messageIndex % bufferSize] = payload;
+    messageIndex++;
+    sockets.forEach((s) => {
+      console.log('emitting log message');
+      s.emit('msg', payload)
+    })
+  });
+
   io.on('connection', (socket) => {
+    sockets.push(socket);
+
     socket.emit('news', {msg: `'Hello World!' from server`});
 
-    socket.on('history', () => {
+    function history() {
       for (let index = 0; index < bufferSize; index++) {
         const msgNo = (messageIndex + index) % bufferSize;
         const msg = messageBuffer[msgNo];
@@ -79,14 +97,26 @@ if (config.api.website.port) {
           socket.emit('msg', msg);
         }
       }
+    }
+
+    history();
+
+    socket.on('history', history);
+
+    console.log('Client connected, total clients: %d', sockets.length);
+    socket.on('disconnect', (client) => {
+      sockets.splice(sockets.indexOf(client), 1);
+      console.log('Client disconnected, total clients: %d', sockets.length);
     });
 
+    /**
     socket.on('msg', (data) => {
       data.id = messageIndex;
       messageBuffer[messageIndex % bufferSize] = data;
       messageIndex++;
       io.emit('msg', data);
     });
+     **/
   });
   io.listen(runnable);
 } else {

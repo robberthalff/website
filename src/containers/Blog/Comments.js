@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisqusThread from 'react-disqus-thread';
+import {Well} from 'react-bootstrap';
 
 export default class Comments extends Component {
   handleNewComment = (comment) => {
@@ -9,15 +10,14 @@ export default class Comments extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Comments</h1>
+      <Well>
         <DisqusThread
           shortname="robberthalff"
           identifier="robberthalff"
           title="RobbertHalff Comments"
           onNewComment={this.handleNewComment}
         />
-      </div>
+      </Well>
     );
   }
 }

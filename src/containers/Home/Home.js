@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router';
-// import { CounterButton, GithubButton } from 'components';
+import {LogWindow} from 'components';
 import config from '../../config';
 import Helmet from 'react-helmet';
 
@@ -27,6 +27,7 @@ export default class Home extends Component {
           </div>
         </div>
         <div className="container">
+          <LogWindow />
         </div>
       </div>
     );

@@ -21,7 +21,6 @@ export default function clientMiddleware(client, key) {
 
       const { types, ...rest } = action; // eslint-disable-line no-redeclare
       const promise = action[key];
-      console.log('Creating client for %s', key);
       if (!promise) {
         return next(action);
       }
