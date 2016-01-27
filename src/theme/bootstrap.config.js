@@ -36,7 +36,7 @@ module.exports = {
     glyphicons: true,
     scaffolding: true,
     type: true,
-    code: true,
+    code: false,
     grid: true,
     tables: true,
     forms: true,

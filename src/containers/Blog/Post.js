@@ -7,6 +7,15 @@ import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 import {Thumbnail, Row, Col} from 'react-bootstrap';
 import marked from 'marked';
+import hjs from 'highlight.js';
+import styles from './Post.scss';
+
+import 'highlight.js/styles/monokai-sublime.css';
+
+marked.setOptions({
+  langPrefix: 'hljs ',
+  highlight: (code) => hjs.highlightAuto(code).value
+});
 
 @connect(
   state => ({
@@ -84,23 +93,25 @@ export default class BlogPost extends Component {
   render() {
     const {post = {}} = this.props;
     return (
-      <div className="container">
-        <h1>{post.name}</h1>
-        <Helmet title={post.name}/>
-        <Row>
-          <Col xs={8} md={8}>
-            <div className="blog">
-              {this.renderBlogPost()}
-            </div>
-          </Col>
-          <Col xs={4} md={4}>
+      <div className={styles.blogPost}>
+        <div className="container">
+          <h1>{post.name}</h1>
+          <Helmet title={post.name}/>
+          <Row>
+            <Col xs={8} md={8}>
+              <div className="blog">
+                {this.renderBlogPost()}
+              </div>
+            </Col>
+            <Col xs={4} md={4}>
               <div className="lead text-muted">Categories</div>
               <ul className="nav nav-pills nav-stacked">
                 <li><a href="/blog">All</a></li>
                 {this.renderCategories()}
               </ul>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }
