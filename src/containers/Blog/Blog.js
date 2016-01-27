@@ -34,6 +34,19 @@ export default class Blog extends Component {
     this.props.loadPosts();
   }
 
+  renderThumbnail = (item) => {
+    // src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
+    if (item.image) {
+      return (
+        <Thumbnail
+          href={`/blog/post/${item.key}`}
+          src={item.image.secure_url}
+        />
+      );
+    }
+    return null;
+  }
+
   renderBlogPosts = () => {
     if (this.props.posts) {
       return this.props.posts.map((item, nr) => {
@@ -41,7 +54,7 @@ export default class Blog extends Component {
           <article className="media" key={nr}>
             <Row>
               <Col xs={2} md={2}>
-                <Thumbnail href={`/blog/post/${item.key}/${item._id}`} src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
+                {this.renderThumbnail(item)}
               </Col>
               <Col xs={10} md={10}>
                 <h3 className="media-heading"><Link to={`/blog/post/${item.key}/${item._id}`}>{item.name}</Link></h3>

@@ -47,6 +47,19 @@ export default class BlogPost extends Component {
     }
   }
 
+  renderThumbnail = (item) => {
+    // src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
+    if (item.image) {
+      return (
+        <Thumbnail
+          href={`/blog/post/${item.key}`}
+          src={item.image.secure_url}
+        />
+      );
+    }
+    return null;
+  }
+
   renderBlogPost = () => {
     const item = this.props.post;
     if (item) {
@@ -54,7 +67,7 @@ export default class BlogPost extends Component {
         <article className="media">
           <Row>
             <Col xs={2} md={2}>
-              <Thumbnail href={`/blog/post/${item.key}`} src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
+              {this.renderThumbnail(item)}
             </Col>
             <Col xs={10} md={10}>
               <h3 className="media-heading"><a href={`/blog/post/${item.key}`}>{item.name}</a></h3>
