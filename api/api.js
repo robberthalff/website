@@ -109,14 +109,10 @@ if (config.api.website.port) {
       console.log('Client disconnected, total clients: %d', sockets.length);
     });
 
-    /**
-    socket.on('msg', (data) => {
-      data.id = messageIndex;
-      messageBuffer[messageIndex % bufferSize] = data;
-      messageIndex++;
+    socket.on('input', (data) => {
+      console.log('RECEIVED INPUT');
       io.emit('msg', data);
     });
-     **/
   });
   io.listen(runnable);
 } else {

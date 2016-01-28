@@ -26,7 +26,9 @@ export default class LogWindow extends Component {
         socket.emit('my other event', { my: 'data from client' });
       });
       socket.on('msg', (data) => {
-        console.log(data);
+        this.setState({
+          messages: [data].concat(this.state.messages)
+        });
       });
 
       return socket;
@@ -34,14 +36,20 @@ export default class LogWindow extends Component {
 
     // pass as prop later from the container.
     this.socket = initSocket();
-    this.socket.on('msg', msg => this.setState({messages: [msg].concat(this.state.messages)}));
+    // this.socket.on('msg', msg => this.setState({messages: [msg].concat(this.state.messages)}));
   }
 
   renderMessages = () => {
     if (this.state) {
-      return this.state.messages.map((msg) => {
+      return this.state.messages.map((msg, nr) => {
+        if (msg.ip) {
+          return (
+            <p key={nr}>{msg.ip} {msg.time} {msg.statusCode} {msg.ua} {msg.method} {msg.path}</p>
+          );
+        }
+        const str = JSON.stringify(msg);
         return (
-          <p>{msg.ip} {msg.time} {msg.statusCode} {msg.ua} {msg.method} {msg.path}</p>
+          <p key={nr}>{str}</p>
         );
       });
     }
