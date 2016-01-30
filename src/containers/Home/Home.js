@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router';
 import {LogWindow} from 'components';
 import config from '../../config';
+import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-
+@connect(
+  state => ({
+    posts: state.posts.data
+  })
+)
 export default class Home extends Component {
   render() {
     const styles = require('./Home.scss');

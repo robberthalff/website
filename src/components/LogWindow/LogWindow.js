@@ -1,58 +1,58 @@
 import React, { Component, PropTypes } from 'react';
 // import {Panel} from 'react-bootstrap';
 import io from 'socket.io-client';
+import {addMessage} from 'redux/modules/log';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
+@connect(
+  state => ({
+    messages: state.log.messages
+  }),
+  dispatch => bindActionCreators({
+    addMessage: addMessage
+  }, dispatch))
 export default class LogWindow extends Component {
   static propTypes = {
-    // messages: PropTypes.array.isRequired,
-    socket: PropTypes.object
+    messages: PropTypes.array.isRequired,
+    socket: PropTypes.object,
+    addMessage: PropTypes.func.isRequired
   };
-  /*
+
   static defaultProps = {
     messages: []
-  };
-  */
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: []
-    };
   }
+
   componentDidMount() {
-    const initSocket = () => {
-      const socket = io('', {path: '/ws'});
-      socket.on('news', (data) => {
-        console.log(data);
-        socket.emit('my other event', { my: 'data from client' });
-      });
-      socket.on('msg', (data) => {
-        this.setState({
-          messages: [data].concat(this.state.messages)
-        });
-      });
+    this.socket = io('', {path: '/ws'});
+    socket.on('msg', (data) => {
+      this.adjustHeader(data.orientation);
+      this.props.addMessage(data);
+    });
+  }
 
-      return socket;
-    };
-
-    // pass as prop later from the container.
-    this.socket = initSocket();
-    // this.socket.on('msg', msg => this.setState({messages: [msg].concat(this.state.messages)}));
+  adjustHeader = (data) => {
+    if (data) {
+      const first = data[0];
+      if (first && first.accuracy) {
+        console.log('first accuracy', first.accuracy);
+      }
+    }
   }
 
   renderMessages = () => {
-    if (this.state) {
-      return this.state.messages.map((msg, nr) => {
-        if (msg.ip) {
-          return (
-            <p key={nr}>{msg.ip} {msg.time} {msg.statusCode} {msg.ua} {msg.method} {msg.path}</p>
-          );
-        }
-        const str = JSON.stringify(msg);
+    const {messages} = this.props;
+    return messages.map((msg, nr) => {
+      if (msg.ip) {
         return (
-          <p key={nr}>{str}</p>
+          <p key={nr}>{msg.ip} {msg.time} {msg.statusCode} {msg.ua} {msg.method} {msg.path}</p>
         );
-      });
-    }
+      }
+      const str = JSON.stringify(msg);
+      return (
+        <p key={nr}>{str}</p>
+      );
+    });
   }
 
   render() {

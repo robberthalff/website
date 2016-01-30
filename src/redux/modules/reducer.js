@@ -8,6 +8,7 @@ import {reducer as form} from 'redux-form';
 import info from './info';
 import posts from './content/posts';
 import post from './content/post';
+import log from './log';
 import categories from './content/categories';
 import widgets from './widgets';
 
@@ -23,6 +24,7 @@ export default combineReducers({
   info,
   posts,
   post,
+  log,
   categories,
   widgets
 });
