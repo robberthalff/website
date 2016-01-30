@@ -25,7 +25,7 @@ export default class LogWindow extends Component {
 
   componentDidMount() {
     this.socket = io('', {path: '/ws'});
-    socket.on('msg', (data) => {
+    this.socket.on('msg', (data) => {
       this.adjustHeader(data.orientation);
       this.props.addMessage(data);
     });
