@@ -1,13 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 // import {Panel} from 'react-bootstrap';
 import io from 'socket.io-client';
-import {addMessage} from 'redux/modules/log';
+import {addMessage} from 'redux/modules/socketme';
 import {connect} from 'react-redux';
+
+/*
+import {
+  // SOCKETME_BATTERY,
+  // SOCKETME_MOTION,
+  // SOCKETME_ORIENTATION
+  // SOCKETME_SIGNAL,
+  // SOCKETME_WIFI,
+  SOCKETME_LOCATION
+  // SOCKETME_DOPPLER,
+} as Action from 'redux/modules/socketme';
+*/
+
+import * as SocketMe from 'redux/modules/socketme';
+
 import {bindActionCreators} from 'redux';
 
 @connect(
   state => ({
-    messages: state.log.messages
+    messages: state[SocketMe.SOCKETME_LOCATION]
   }),
   dispatch => bindActionCreators({
     addMessage: addMessage
@@ -27,7 +42,18 @@ export default class LogWindow extends Component {
     this.socket = io('', {path: '/ws'});
     this.socket.on('msg', (data) => {
       this.adjustHeader(data.orientation);
-      this.props.addMessage(data);
+      Object.keys(data).forEach((type) => {
+        // only send last entry
+        // LOG messages are in a different format skip for now
+        if (Array.isArray(data[type])) {
+          this.props.addMessage(SocketMe[`SOCKETME_${type.toUpperCase()}`], data[type].pop());
+        } else {
+          /*
+          console.log('WHAT TYPE', type);
+          this.props.addMessage(SocketMe[`SOCKETME_${type.toUpperCase()}`], data[type]);
+          */
+        }
+      });
     });
   }
 
@@ -56,7 +82,7 @@ export default class LogWindow extends Component {
   }
 
   render() {
-    const styles = require('./LogWindow.scss');
+    const styles = require('./style.scss');
     return (
       <div className={styles.log}>
         {this.renderMessages()}

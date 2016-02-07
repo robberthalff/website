@@ -80,7 +80,9 @@ if (config.api.website.port) {
     messageIndex++;
     sockets.forEach((s) => {
       console.log('emitting log message');
-      s.emit('msg', payload)
+      s.emit('msg', {
+        log: [payload]
+      })
     })
   });
 
@@ -94,12 +96,19 @@ if (config.api.website.port) {
         const msgNo = (messageIndex + index) % bufferSize;
         const msg = messageBuffer[msgNo];
         if (msg) {
-          socket.emit('msg', msg);
+          socket.emit('msg', {
+            log: [msg]
+          });
         }
       }
     }
 
+    // cache should just only send the last one.
+    // no need to send arrays.
+
+    /*
     history();
+    */
 
     socket.on('history', history);
 

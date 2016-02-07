@@ -1,19 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 // import { Link } from 'react-router';
 import {LogWindow} from 'components';
 import config from '../../config';
 import {connect} from 'react-redux';
+import {SOCKETME_ORIENTATION, SOCKETME_SIGNAL} from 'redux/modules/socketme';
 import Helmet from 'react-helmet';
 @connect(
   state => ({
-    posts: state.posts.data
+    orientation: state.socketme[SOCKETME_ORIENTATION],
+    signal: state.socketme[SOCKETME_SIGNAL]
   })
 )
 export default class Home extends Component {
+  static propTypes = {
+    orientation: PropTypes.array,
+    signal: PropTypes.array
+  }
   render() {
     const styles = require('./Home.scss');
+    const {orientation, signal} = this.props;
     // require the logo image both from client and server
     const logoImage = require('./logo.png');
+    const imgStyle = {};
+    if (orientation.length) {
+      const deg = Math.round(orientation.pop().magneticHeading);
+      imgStyle.transform = `rotate(${deg}deg)`;
+    }
+    if (signal && signal.length) {
+      imgStyle.width = ((100 + ((100 + signal.slice().pop().dBm) * 6))) + '%';
+    }
     return (
       <div className={styles.home}>
         <Helmet title="Home"/>
@@ -21,7 +36,7 @@ export default class Home extends Component {
           <div className="container">
             <div className={styles.logo}>
               <p>
-                <img src={logoImage}/>
+                <img src={logoImage} style={imgStyle}/>
               </p>
             </div>
             <h1>{config.app.title}</h1>
