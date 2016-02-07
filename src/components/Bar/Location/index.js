@@ -1,28 +1,30 @@
 import React, {Component, PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {load} from 'redux/modules/info';
+import {SOCKETME_LOCATION} from 'redux/modules/socketme';
 
-@connect(
-    state => ({info: state.info.data}),
-    dispatch => bindActionCreators({load}, dispatch))
-export default class InfoBar extends Component {
+@connect( state => ({location: state.socketme[SOCKETME_LOCATION]}) )
+export default class LocationBar extends Component {
   static propTypes = {
-    info: PropTypes.object,
-    load: PropTypes.func.isRequired
+    location: PropTypes.array
+  }
+
+  static defaultProps = {
+    location: []
+  }
+
+  renderLocation() {
+    const {location} = this.props;
+    return location.map((_location, nr) => {
+      return (<strong key={nr}>{_location.latitude} {_location.longitude}</strong>);
+    });
   }
 
   render() {
-    const {info, load} = this.props; // eslint-disable-line no-shadow
-    const styles = require('./InfoBar.scss');
+    const styles = require('./style.scss');
     return (
       <div className={styles.infoBar + ' well'}>
         <div className="container">
-          This is an info bar
-          {' '}
-          <strong>{info ? info.message : 'no info!'}</strong>
-          <span className={styles.time}>{info && new Date(info.time).toString()}</span>
-          <button className="btn btn-primary" onClick={load}>Reload from server</button>
+          {this.renderLocation()}
         </div>
       </div>
     );
