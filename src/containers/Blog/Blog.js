@@ -38,10 +38,12 @@ export default class Blog extends Component {
     // src="http://res.cloudinary.com/keystone-demo/image/upload/c_fit,f_auto,h_80,w_80/v1453377461/owhisapu78fkfzkjouwr.png" />
     if (item.image) {
       return (
-        <Thumbnail
-          href={`/blog/post/${item.key}`}
-          src={item.image.secure_url}
-        />
+        <Col xs={2} md={2}>
+          <Thumbnail
+            href={`/blog/post/${item.key}`}
+            src={item.image.secure_url}
+          />
+        </Col>
       );
     }
     return null;
@@ -50,22 +52,23 @@ export default class Blog extends Component {
   renderBlogPosts = () => {
     if (this.props.posts) {
       return this.props.posts.map((item, nr) => {
-        return (
-          <article className="media" key={nr}>
-            <Row>
-              <Col xs={2} md={2}>
+        const colSize = item.image ? 10 : 12;
+        if (item.content) {
+          return (
+            <article className="media" key={nr}>
+              <Row>
                 {this.renderThumbnail(item)}
-              </Col>
-              <Col xs={10} md={10}>
-                <h3 className="media-heading"><Link to={`/blog/post/${item.key}/${item._id}`}>{item.name}</Link></h3>
-                <p className="text-muted text-small">
-                  <time>January 21st, 2016</time> <span>by A B</span>
-                </p>
-                <div dangerouslySetInnerHTML={{ __html: marked(item.content.brief.md) }} />
-              </Col>
-            </Row>
-          </article>
-        );
+                <Col xs={colSize} md={colSize}>
+                  <h3 className="media-heading"><Link to={`/blog/post/${item.key}/${item._id}`}>{item.name}</Link></h3>
+                  <p className="text-muted text-small">
+                    <time>January 21st, 2016</time> <span>by A B</span>
+                  </p>
+                  <div dangerouslySetInnerHTML={{ __html: marked(item.content.brief.md) }} />
+                </Col>
+              </Row>
+            </article>
+          );
+        }
       });
     }
     return (
@@ -99,16 +102,18 @@ export default class Blog extends Component {
 
   render() {
     const styles = require('./Blog.scss');
+    /*
     const logoImage = require('./logo.png');
+    <p>
+      <img src={logoImage} />
+    </p>
+    */
     return (
       <div className={styles.blog}>
         <Helmet title="Blog"/>
         <div className={styles.masthead}>
           <div className="container">
             <h1>Blog</h1>
-            <p>
-              <img src={logoImage} />
-            </p>
           </div>
         </div>
             <div className="container">

@@ -6,7 +6,7 @@ import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 import {Well, Thumbnail, Row, Col} from 'react-bootstrap';
 import Comments from './Comments';
-import Categories from './Categories';
+// import Categories from './Categories';
 import marked from 'marked';
 import hjs from 'highlight.js';
 
@@ -65,14 +65,12 @@ export default class BlogPost extends Component {
       return (
         <article className="media">
           <Row>
-            <Col xs={2} md={2}>
-              {this.renderThumbnail(item)}
-            </Col>
-            <Col xs={10} md={10}>
+            <Col xs={12} md={12}>
               <h3 className="media-heading"><a href={`/blog/post/${item.key}`}>{item.name}</a></h3>
               <p className="text-muted text-small">
                 <time>January 21st, 2016</time> <span>by A B</span>
               </p>
+              {this.renderThumbnail(item)}
               <div dangerouslySetInnerHTML={{ __html: marked(item.content.extended.md) }} />
             </Col>
           </Row>
@@ -87,20 +85,22 @@ export default class BlogPost extends Component {
   render() {
     const styles = require('./Post.scss');
     const {post = {}} = this.props;
+    /*
+    <Col xs={4} md={4}>
+      <Categories />
+    </Col>
+    */
     return (
       <div className={styles.blogPost}>
         <div className="container">
           <Helmet title={post.name}/>
           <Row>
-            <Col xs={8} md={8}>
+            <Col xs={12} md={12}>
               <Well>
               <div className="blog">
                 {this.renderBlogPost()}
               </div>
               </Well>
-            </Col>
-            <Col xs={4} md={4}>
-              <Categories />
             </Col>
           </Row>
           <Row>

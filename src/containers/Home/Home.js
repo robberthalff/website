@@ -18,9 +18,10 @@ export default class Home extends Component {
   }
   render() {
     const styles = require('./Home.scss');
-    const {orientation, signal} = this.props;
-    // require the logo image both from client and server
-    const logoImage = require('./logo.png');
+    /*
+     const {orientation, signal} = this.props;
+     // require the logo image both from client and server
+     const logoImage = require('./logo.png');
     const imgStyle = {};
     if (orientation.length) {
       const deg = Math.round(orientation.pop().magneticHeading);
@@ -29,16 +30,17 @@ export default class Home extends Component {
     if (signal && signal.length) {
       imgStyle.width = ((100 + ((100 + signal.slice().pop().dBm) * 6))) + '%';
     }
+     <div className={styles.logo}>
+     <p>
+     <img src={logoImage} style={imgStyle}/>
+     </p>
+     </div>
+    */
     return (
       <div className={styles.home}>
         <Helmet title="Home"/>
         <div className={styles.masthead}>
           <div className="container">
-            <div className={styles.logo}>
-              <p>
-                <img src={logoImage} style={imgStyle}/>
-              </p>
-            </div>
             <h1>{config.app.title}</h1>
             <h2>{config.app.description}</h2>
             <p>

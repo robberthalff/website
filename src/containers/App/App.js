@@ -11,12 +11,6 @@ import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/module
 import { pushState } from 'redux-router';
 import connectData from 'helpers/connectData';
 import config from '../../config';
-import {
-  SignalBar,
-  LocationBar,
-  WifiBar,
-  OrientationBar
-} from '../../components';
 
 function fetchData(getState, dispatch) {
   const promises = [];
@@ -106,12 +100,8 @@ export default class App extends Component {
 
         <Navbar fixedBottom>
           <Navbar.Header>
-            <LocationBar />
-            <WifiBar />
-            <SignalBar />
-            <OrientationBar />
             <div className="text-center">
-              <a href="https://github.com/rhalff" target="_blank">RobbertHalff</a>
+              <a href="https://github.com/robberthalff/SocketMe" target="_blank">Powered By SocketMe</a>
             </div>
           </Navbar.Header>
         </Navbar>

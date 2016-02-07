@@ -43,10 +43,6 @@ export default class Projects extends Component {
         <Helmet title="Home"/>
         <div className={styles.masthead}>
           <div className="container">
-            <div className={styles.logo}>
-              <p>
-              </p>
-            </div>
             <h1>SourceCode</h1>
             <p>
               <a className={styles.github} href="https://github.com/rhalff" target="_blank">
