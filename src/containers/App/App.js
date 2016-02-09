@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
+import { Navbar, Nav, NavItem, Button, ButtonToolbar } from 'react-bootstrap';
 import Helmet from 'react-helmet';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
@@ -99,11 +97,11 @@ export default class App extends Component {
         </div>
 
         <Navbar fixedBottom>
-          <Navbar.Header>
-            <div className="text-center">
-              <a href="https://github.com/robberthalff/SocketMe" target="_blank">Powered By SocketMe</a>
-            </div>
-          </Navbar.Header>
+            <ButtonToolbar className="pull-right">
+              <Button bsSize="xsmall" href="https://github.com/robberthalff/SocketMe" target="_blank">
+                Powered By SocketMe
+              </Button>
+            </ButtonToolbar>
         </Navbar>
       </div>
     );

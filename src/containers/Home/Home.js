@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 // import { Link } from 'react-router';
-import {LogWindow} from 'components';
+// import {LogWindow} from 'components';
 import config from '../../config';
 import {connect} from 'react-redux';
 import {SOCKETME_ORIENTATION, SOCKETME_SIGNAL} from 'redux/modules/socketme';
@@ -35,6 +35,7 @@ export default class Home extends Component {
      <img src={logoImage} style={imgStyle}/>
      </p>
      </div>
+     <LogWindow />
     */
     return (
       <div className={styles.home}>
@@ -49,7 +50,6 @@ export default class Home extends Component {
           </div>
         </div>
         <div className="container">
-          <LogWindow />
         </div>
       </div>
     );

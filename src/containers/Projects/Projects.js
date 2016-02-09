@@ -51,13 +51,20 @@ export default class Projects extends Component {
             </p>
           </div>
         </div>
-            <div className="container">
-              <Well>
-                <div className="clearfix">
-            {this.renderProjects()}
-                </div>
+        <div className="window projectsWindow center-block">
+          <div className="panel">
+            <div className="panel-header">
+              <div className="panel-title">
+                <h3>Code must be written...</h3>
+              </div>
+            </div>
+            <div className="panel-body">
+              <Well className="clearfix">
+                {this.renderProjects()}
               </Well>
             </div>
+          </div>
+        </div>
       </div>
     );
   }

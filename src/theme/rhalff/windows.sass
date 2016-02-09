@@ -1,0 +1,67 @@
+@import './mixin.sass'
+
+////////////////////////////////
+//
+// Windows
+//
+////////////////////////////////
+
+.window
+  +user_select(none)
+  margin-bottom: 6em
+  // display: none
+  //position: absolute
+  //top: 10%
+  //left: 40%
+  //width: 500px
+  // z-index: 500
+  // everything in the background
+  position: relative
+  width: 80%
+  // z-index: 0
+  opacity: 0.90
+  &:hover
+    // hint we are clickable
+    opacity: 0.95
+    cursor: pointer
+  // used when pushed/clicked
+  &.active
+    opacity: 0.99
+    // z-index: 550
+  .glyphicon-remove
+    margin: 3px
+  // bootstrap panels have a bottom margin of 3em by default
+  .panel
+    border: 1px solid silver
+    margin: 0
+    .panel-heading
+      cursor: move
+      height: 1.75em
+    .panel-title
+      color: white
+      text-align: center
+
+@import "windows/blog"
+@import "windows/projects"
+// @import "windows/log"
+
+// some responsive fun screen variables are from bootstrap
+// @media (max-width: $screen-xs-max)
+//   html
+//     height: 100%
+//   body
+//     height: 100%
+//   .window, .window .panel
+//     width: 100%
+//     height: 100%
+//     left: 0 !important
+//     top: 0 !important
+//     bottom: 0 !important
+//     z-index: 1050
+//     +opacity(1)
+//     &:hover
+//       z-index: 1050
+
+// @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+// @media (min-width: $screen-md-min) and (max-width: $screen-md-max)
+// @media (min-width: $screen-lg-min)

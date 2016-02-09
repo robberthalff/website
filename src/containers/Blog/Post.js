@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {load as loadPost } from 'redux/modules/content/post';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
-import {Well, Thumbnail, Row, Col} from 'react-bootstrap';
+import {Thumbnail, Row, Col} from 'react-bootstrap';
 import Comments from './Comments';
 // import Categories from './Categories';
 import marked from 'marked';
@@ -63,18 +63,29 @@ export default class BlogPost extends Component {
     const item = this.props.post;
     if (item) {
       return (
-        <article className="media">
-          <Row>
-            <Col xs={12} md={12}>
-              <h3 className="media-heading"><a href={`/blog/post/${item.key}`}>{item.name}</a></h3>
-              <p className="text-muted text-small">
-                <time>January 21st, 2016</time> <span>by A B</span>
-              </p>
-              {this.renderThumbnail(item)}
-              <div dangerouslySetInnerHTML={{ __html: marked(item.content.extended.md) }} />
-            </Col>
-          </Row>
-        </article>
+        <div className="window blogWindow center-block">
+          <div className="panel">
+            <div className="panel-header">
+              <div className="panel-title">
+                <h3>{item.name}</h3>
+                <time>January 21st, 2016</time>
+              </div>
+              <div className="panel-body">
+                <article className="media">
+                  <Row>
+                    <Col xs={12} md={12}>
+                      <p className="text-muted text-small">
+                      </p>
+                      {this.renderThumbnail(item)}
+                      <div dangerouslySetInnerHTML={{ __html: marked(item.content.extended.md) }} />
+                    </Col>
+                  </Row>
+                </article>
+                <Comments />
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
     return (
@@ -92,21 +103,8 @@ export default class BlogPost extends Component {
     */
     return (
       <div className={styles.blogPost}>
-        <div className="container">
-          <Helmet title={post.name}/>
-          <Row>
-            <Col xs={12} md={12}>
-              <Well>
-              <div className="blog">
-                {this.renderBlogPost()}
-              </div>
-              </Well>
-            </Col>
-          </Row>
-          <Row>
-            <Comments />
-          </Row>
-        </div>
+        <Helmet title={post.name}/>
+          {this.renderBlogPost()}
       </div>
     );
   }

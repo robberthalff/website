@@ -44,12 +44,11 @@ export default class Categories extends Component {
 
   render() {
     return (
-      <Panel>
-        <div className="lead text-muted">Categories</div>
-        <ul className="nav nav-pills nav-stacked">
-          <li><a href="/blog">All</a></li>
-          {this.renderCategories()}
-        </ul>
+      <Panel header="Categories">
+          <ul className="nav nav-pills nav-stacked">
+            <li><a href="/blog">All</a></li>
+            {this.renderCategories()}
+          </ul>
       </Panel>
     );
   }

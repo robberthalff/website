@@ -1,0 +1,41 @@
+@mixin χ($title)
+  &:after
+    content: "χ" + $title
+    position: absolute
+    top: -1px
+    left: -1px
+    padding: 3px 7px
+    font-size: 1.5em
+    font-weight: bold
+    background-color: black
+    border-bottom: 1px solid silver
+    border-right: 1px solid silver
+    color: white
+    border-radius: 4px 0 4px 0
+
+@mixin invert($pct)
+  -webkit-filter: invert($pct)
+  -moz-filter: invert($pct)
+  -o-filter: invert($pct)
+  filter: invert($pct)
+  +transition(filter 0.4s easy-out)
+  +transition(-o-filter 0.4s ease-out)
+  +transition(-moz-filter 0.4s ease-out)
+  +transition(-webkit-filter 0.4s ease-out)
+
+.invert
+  +invert(100%)
+
+/**
+ * Mixin scrollbar
+ */
+@mixin scrollbar($size: 1em, $primary: grey, $secondary: lighten($primary, 25%))
+  ::-webkit-scrollbar
+    width:  $size
+    height: $size
+
+  ::-webkit-scrollbar-thumb
+    background: $primary
+
+  ::-webkit-scrollbar-track
+    background: $secondary
