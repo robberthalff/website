@@ -1,60 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 // import {Panel} from 'react-bootstrap';
-import io from 'socket.io-client';
-import {addMessage} from 'redux/modules/socketme';
 import {connect} from 'react-redux';
-
-/*
-import {
-  // SOCKETME_BATTERY,
-  // SOCKETME_MOTION,
-  // SOCKETME_ORIENTATION
-  // SOCKETME_SIGNAL,
-  // SOCKETME_WIFI,
-  SOCKETME_LOCATION
-  // SOCKETME_DOPPLER,
-} as Action from 'redux/modules/socketme';
-*/
-
-import * as SocketMe from 'redux/modules/socketme';
-
-import {bindActionCreators} from 'redux';
+import {SOCKETME_LOCATION} from 'redux/modules/socketme';
 
 @connect(
   state => ({
-    messages: state[SocketMe.SOCKETME_LOCATION]
-  }),
-  dispatch => bindActionCreators({
-    addMessage: addMessage
-  }, dispatch))
+    messages: state[SOCKETME_LOCATION]
+  }))
 export default class LogWindow extends Component {
   static propTypes = {
-    messages: PropTypes.array.isRequired,
-    socket: PropTypes.object,
-    addMessage: PropTypes.func.isRequired
+    messages: PropTypes.array.isRequired
   };
 
   static defaultProps = {
     messages: []
-  }
-
-  componentDidMount() {
-    this.socket = io('', {path: '/ws'});
-    this.socket.on('msg', (data) => {
-      this.adjustHeader(data.orientation);
-      Object.keys(data).forEach((type) => {
-        // only send last entry
-        // LOG messages are in a different format skip for now
-        if (Array.isArray(data[type])) {
-          this.props.addMessage(SocketMe[`SOCKETME_${type.toUpperCase()}`], data[type].pop());
-        } else {
-          /*
-          console.log('WHAT TYPE', type);
-          this.props.addMessage(SocketMe[`SOCKETME_${type.toUpperCase()}`], data[type]);
-          */
-        }
-      });
-    });
   }
 
   adjustHeader = (data) => {

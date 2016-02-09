@@ -38,24 +38,23 @@ export default class Projects extends Component {
 
   render() {
     const styles = require('./Projects.scss');
+    /*
+    <div className={styles.masthead}>
+    </div>
+    */
     return (
       <div className={styles.home}>
         <Helmet title="Home"/>
-        <div className={styles.masthead}>
-          <div className="container">
-            <h1>SourceCode</h1>
-            <p>
-              <a className={styles.github} href="https://github.com/rhalff" target="_blank">
-                <i className="fa fa-github"/> View on Github
-              </a>
-            </p>
-          </div>
-        </div>
         <div className="window projectsWindow center-block">
           <div className="panel">
             <div className="panel-header">
               <div className="panel-title">
-                <h3>Code must be written...</h3>
+                  <h1>SourceCode</h1>
+                  <p>
+                    <a className={styles.github} href="https://github.com/rhalff" target="_blank">
+                      <i className="fa fa-github"/> View on Github
+                    </a>
+                  </p>
               </div>
             </div>
             <div className="panel-body">

@@ -6,17 +6,8 @@ export const SOCKETME_WIFI = 'SocketMe/wifi';
 export const SOCKETME_LOCATION = 'SocketMe/location';
 export const SOCKETME_DOPPLER = 'SocketMe/doppler';
 export const SOCKETME_LOG = 'SocketMe/log';
-
-console.log(
-  SOCKETME_BATTERY,
-  SOCKETME_MOTION,
-  SOCKETME_ORIENTATION,
-  SOCKETME_SIGNAL,
-  SOCKETME_WIFI,
-  SOCKETME_LOCATION,
-  SOCKETME_DOPPLER,
-  SOCKETME_LOG
-);
+export const SOCKETME_CONNECTED = 'SocketMe/connected';
+export const SOCKETME_TS = 'SocketMe/timestamp';
 
 const initialState = {
   [SOCKETME_BATTERY]: [],
@@ -26,7 +17,9 @@ const initialState = {
   [SOCKETME_WIFI]: [],
   [SOCKETME_LOCATION]: [],
   [SOCKETME_DOPPLER]: [],
-  [SOCKETME_LOG]: []
+  [SOCKETME_LOG]: [],
+  [SOCKETME_CONNECTED]: [],
+  [SOCKETME_TS]: []
 };
 
 const maxLength = 3;

@@ -109,16 +109,16 @@ export default class Blog extends Component {
     <p>
       <img src={logoImage} />
     </p>
+     <div className={styles.masthead}>
+     <div className="container">
+     <h1>Blog</h1>
+     </div>
+     </div>
     */
     console.log(styles);
     return (
       <div className={styles.blog}>
         <Helmet title="Blog"/>
-        <div className={styles.masthead}>
-          <div className="container">
-            <h1>Blog</h1>
-          </div>
-        </div>
         <div className="window blogWindow center-block">
           <div className="panel">
             <div className="panel-header"><div className="panel-title"><h3>Weblog</h3></div></div>

@@ -12,11 +12,18 @@ export default class About extends Component {
     return (
       <div className={styles.about}>
         <div className="container">
-          <Well>
-            <h1>About</h1>
-            <Helmet title="About"/>
-            <MiniInfoBar/>
-          </Well>
+          <div className="window aboutWindow center-block">
+            <div className="panel">
+              <div className="panel-header"><div className="panel-title"><h3>About</h3></div></div>
+              <div className="panel-body">
+                <Well>
+                  <h1>About</h1>
+                  <Helmet title="About"/>
+                  <MiniInfoBar/>
+                </Well>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

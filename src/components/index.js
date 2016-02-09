@@ -9,6 +9,7 @@ export GithubButton from './GithubButton';
 export LogWindow from './LogWindow';
 
 export InfoBar from './Bar/Info';
+export StatusBar from './Bar/Status';
 export MiniInfoBar from './Bar/MiniInfo';
 export BatteryBar from './Bar/Battery';
 export MotionBar from './Bar/Motion';

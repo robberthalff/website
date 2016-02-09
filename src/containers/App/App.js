@@ -9,6 +9,7 @@ import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/module
 import { pushState } from 'redux-router';
 import connectData from 'helpers/connectData';
 import config from '../../config';
+import {StatusBar} from '../../components';
 
 function fetchData(getState, dispatch) {
   const promises = [];
@@ -101,6 +102,7 @@ export default class App extends Component {
               <Button bsSize="xsmall" href="https://github.com/robberthalff/SocketMe" target="_blank">
                 Powered By SocketMe
               </Button>
+              <StatusBar />
             </ButtonToolbar>
         </Navbar>
       </div>

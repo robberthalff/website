@@ -74,7 +74,6 @@ if (config.api.website.port) {
 
   const sockets = [];
   sock.on('log:*', (action, payload) => {
-    console.log(payload);
     payload.id = messageIndex;
     messageBuffer[messageIndex % bufferSize] = payload;
     messageIndex++;
@@ -86,10 +85,20 @@ if (config.api.website.port) {
     })
   });
 
+  function isSocketMe(socket) {
+    return /GT-I/.test(socket.handshake.headers['user-agent']);
+  }
+
   io.on('connection', (socket) => {
     sockets.push(socket);
 
-    socket.emit('news', {msg: `'Hello World!' from server`});
+    if (isSocketMe(socket)) {
+      console.log(
+        'DEVICE CONNECTED %s',
+        socket.handshake.headers['user-agent'].match(/\((.*?)\)/).pop()
+      );
+      io.emit('msg', {connected: true});
+    }
 
     function history() {
       for (let index = 0; index < bufferSize; index++) {
@@ -115,11 +124,17 @@ if (config.api.website.port) {
     console.log('Client connected, total clients: %d', sockets.length);
     socket.on('disconnect', (client) => {
       sockets.splice(sockets.indexOf(client), 1);
+      const match = sockets.filter(function(sock) {
+        return isSocketMe(sock);
+      })
       console.log('Client disconnected, total clients: %d', sockets.length);
+      if (!match.length) {
+        io.emit('msg', {connected: false});
+      }
     });
 
     socket.on('input', (data) => {
-      console.log('RECEIVED INPUT');
+      console.log('RECEIVED INPUT', data);
       io.emit('msg', data);
     });
   });
