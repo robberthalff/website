@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 // import {Panel} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {SOCKETME_LOG} from 'redux/modules/socketme';
+import {SOCKETME_LOCATION} from 'redux/modules/socketme';
 
 @connect(
   state => ({
-    messages: state.socketme[SOCKETME_LOG]
+    messages: state[SOCKETME_LOCATION]
   }))
-export default class LogWindow extends Component {
+export default class MessageWindow extends Component {
   static propTypes = {
     messages: PropTypes.array.isRequired
   };
@@ -27,7 +27,6 @@ export default class LogWindow extends Component {
 
   renderMessages = () => {
     const {messages} = this.props;
-    console.log('RENDER MESSAGE', this.props);
     return messages.map((msg, nr) => {
       if (msg.ip) {
         return (
@@ -44,7 +43,7 @@ export default class LogWindow extends Component {
   render() {
     const styles = require('./style.scss');
     return (
-      <div className="window logWindow">
+      <div className="window messageWindow">
         <div className={styles.log}>
           {this.renderMessages()}
         </div>

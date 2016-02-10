@@ -1,19 +1,36 @@
 @import "../../theme/variables.scss";
 
 .blogPost {
+  .window .panel {
+    background-image: none;
+  }
+  article {
+    color: white;
+    padding: 2em;
+    margin-left: 2em;
+    margin-right: 2em;
+
+    h1, h2, h3, h4, h5 {
+      border-left: 5px solid #44d0e8;
+      border-top: 1px solid silver;
+      padding-left: 1em;
+      padding-top: 0.3em;
+      text-shadow: 2px 2px 2px rgb(0, 0, 0);
+      clear: both;
+      margin-bottom: 1em;
+    }
+
+    pre {
+      padding: 1em;
+      background-color: black;
+      border: 1px solid #6d6d28;
+      width: 50%;
+      margin-left: 1em;
+    }
+  }
+
+  hr {
+    clear: both;
+  }
 }
 
-article {
-  color: white;
-}
-
-hr {
-  clear: both;
-}
-
-pre {
-  padding: 1em;
-  background-color: black;
-  border: 1px solid #6d6d28;
-  float: left;
-}

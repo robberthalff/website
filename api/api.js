@@ -77,12 +77,18 @@ if (config.api.website.port) {
     payload.id = messageIndex;
     messageBuffer[messageIndex % bufferSize] = payload;
     messageIndex++;
+    io.emit('msg', {
+      log: [payload]
+    });
+    console.log('emitting log message');
+    /*
     sockets.forEach((s) => {
       console.log('emitting log message');
       s.emit('msg', {
         log: [payload]
       })
     })
+    */
   });
 
   function isSocketMe(socket) {
@@ -115,9 +121,7 @@ if (config.api.website.port) {
     // cache should just only send the last one.
     // no need to send arrays.
 
-    /*
     history();
-    */
 
     socket.on('history', history);
 
