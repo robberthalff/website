@@ -6,7 +6,7 @@ import Helmet from 'react-helmet';
 import {Well, Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
 import {Link} from 'react-router';
 import marked from 'marked';
-import Categories from './Categories';
+// import Categories from './Categories';
 import moment from 'moment';
 
 @connect(
@@ -63,7 +63,7 @@ export default class Blog extends Component {
                 <Col xs={colSize} md={colSize}>
                   <h3 className="media-heading"><Link to={`/blog/post/${item.key}/${item._id}`}>{item.name}</Link></h3>
                   <p className="text-muted text-small">
-                    <time>{moment().calendar(item.publishedDate)}</time> <span>by {item.author.name}</span>
+                    <time>{moment().calendar(item.publishedDate)}</time>
                   </p>
                   <div dangerouslySetInnerHTML={{ __html: marked(item.content.brief.md) }} />
                 </Col>
@@ -114,32 +114,30 @@ export default class Blog extends Component {
      <h1>Blog</h1>
      </div>
      </div>
+     <Categories />
     */
     console.log(styles);
     return (
       <div className={styles.blog}>
         <Helmet title="Blog"/>
-        <div className="window blogWindow center-block">
-          <div className="panel">
-            <div className="panel-header"><div className="panel-title"><h3>Weblog</h3></div></div>
-            <div className="panel-body">
-              <Well>
-                <Row>
-                  <Col xs={8} md={8}>
-                    {this.renderShowing()}
-                    <div className="blog">
-                      {this.renderBlogPosts()}
-                    </div>
-                    {this.renderPagination()}
-                  </Col>
-                  <Col xs={4} md={4}>
-                    <Categories />
-                  </Col>
-                </Row>
-                <p>
-                  <button className="btn btn-primary" onClick={this.loadIt}>Reload from server</button>
-                </p>
-              </Well>
+        <div className="container">
+          <div className="window blogWindow center-block">
+            <div className="panel">
+              <div className="panel-header"><div className="panel-title"><h3>Weblog</h3></div></div>
+              <div className="panel-body">
+                <Well>
+                  <Row>
+                    <Col xs={8} md={8}>
+                      {this.renderShowing()}
+                      <div className="blog">
+                        {this.renderBlogPosts()}
+                      </div>
+                      {this.renderPagination()}
+                    </Col>
+                    <Col xs={4} md={4} />
+                  </Row>
+                </Well>
+              </div>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import {Well, Row, Col} from 'react-bootstrap';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import Player from './Player/Player';
+import { Icons } from 'react-soundplayer/components';
 const clientId = '0d35c7e491d8eff85a353a22baa5b15e';
 const playListUrl = 'https://soundcloud.com/rob-halff/sets/robberthalff';
 
@@ -20,26 +21,31 @@ export default class Sounds extends Component {
   render() {
     const styles = require('./Sounds.scss');
     return (
-      <div className={styles.blog}>
+      <div className={styles.sounds}>
         <Helmet title="SoundLog"/>
-        <div className="window soundWindow center-block">
-          <div className="panel">
-            <div className="panel-header"><div className="panel-title"><h3>SoundLog</h3></div></div>
-            <div className="panel-body">
-              <Well>
-                <p>
-                  Things I record
-                </p>
-                <Row>
-                  <Col xs={12} md={12}>
-                    <div className="blog">
-                      <SoundPlayerContainer resolveUrl={playListUrl} clientId={clientId}>
-                        <Player />
-                      </SoundPlayerContainer>
-                    </div>
-                  </Col>
-                </Row>
-              </Well>
+        <div className="container">
+          <div className="window soundWindow center-block">
+            <div className="panel">
+              <div className="panel-body">
+                <Well>
+                  <p>
+                    Things I record
+                  </p>
+                  <Icons.SoundCloudLogoSVG />
+                  <hr />
+                  <div className="well">
+                    <Row>
+                      <Col xs={12} md={12}>
+                        <div className="blog">
+                          <SoundPlayerContainer resolveUrl={playListUrl} clientId={clientId}>
+                            <Player />
+                          </SoundPlayerContainer>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                </Well>
+              </div>
             </div>
           </div>
         </div>

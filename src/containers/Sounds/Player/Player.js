@@ -1,5 +1,13 @@
 import React, {Component, PropTypes} from 'react';
-import {ButtonToolbar} from 'react-bootstrap';
+import {
+  ButtonToolbar,
+// Button,
+  Thumbnail,
+  Col,
+  Row,
+  Grid
+//  Panel
+} from 'react-bootstrap';
 import {
   PlayButton,
   PrevButton,
@@ -7,6 +15,8 @@ import {
   Progress,
   Timer
 } from 'react-soundplayer/components';
+
+import defaultImage from '../default.jpg';
 
 export default class Player extends Component {
   static propTypes = {
@@ -20,15 +30,24 @@ export default class Player extends Component {
     super();
 
     this.state = {
-      activeIndex: 0
+      activeIndex: 0,
+      playing: false
     };
   }
 
   playTrackAtIndex(playlistIndex) {
     const { soundCloudAudio } = this.props;
-    this.setState({activeIndex: playlistIndex});
-    console.log('Playing', playlistIndex);
-    soundCloudAudio.play({ playlistIndex });
+    const { playing } = this.state;
+    if (playing && playlistIndex === this.state.activeIndex) {
+      soundCloudAudio.stop({playlistIndex});
+      this.setState({playing: false});
+    } else {
+      this.setState({
+        activeIndex: playlistIndex,
+        playing: true
+      });
+      soundCloudAudio.play({ playlistIndex });
+    }
   }
 
   nextIndex() {
@@ -53,36 +72,56 @@ export default class Player extends Component {
   }
 
   renderTrackList() {
-    const { playlist } = this.props;
+    const { playlist, currentTime } = this.props;
 
     if (!playlist) {
       return <div>Loading...</div>;
     }
 
     const tracks = playlist.tracks.map((track, nr) => {
+      const progress = (currentTime / track.duration * 100000);
+      const style = {
+        backgroundImage: `url(${track.waveform_url})`
+      };
+      if (nr === this.state.activeIndex) {
+        style.backgroundPosition = `${progress}% ${progress + 1}%`;
+      }
       return (
-        <button
-          key={track.id}
-          onClick={this.playTrackAtIndex.bind(this, nr)}
-        >
-          <span className="flex-auto semibold">{track.user.username} - {track.title}</span>
-          <span className="h6 regular">{Timer.prettyTime(track.duration / 1000)}</span>
-        </button>
+        <Col xs={3} md={3}>
+          <Thumbnail
+            style={style}
+            key={track.id}
+            src={track.artwork_url || defaultImage}
+            onClick={this.playTrackAtIndex.bind(this, nr)}
+            alt="242x200">
+            <h3>{track.title}</h3>
+            <span className="">{Timer.prettyTime(track.duration / 1000)}</span>
+            <p>{track.description}</p>
+          </Thumbnail>
+        </Col>
       );
     });
 
     return (
-      <div>{tracks}</div>
+      <Row>{tracks}</Row>
     );
   }
 
   renderControls = () => {
     const { currentTime, duration } = this.props;
+    // TODO: very unoptimal rendering all is re-evaluated because of currentTime
+    //       and probably also because of this.props.soundCloudPlayer
     return (
       <div className="">
         <div className="">
           <Timer className="h6 mr1 regular" duration={duration || 0} currentTime={currentTime} />
         </div>
+        <Progress
+          className="btn mt1 mb1 rounded"
+          innerClassName="rounded-left"
+          value={currentTime / duration * 100 || 0}
+          {...this.props}
+        />
         <ButtonToolbar>
           <PrevButton
             className="btn btn-default btn-xs"
@@ -98,24 +137,20 @@ export default class Player extends Component {
             onNextClick={this.nextIndex.bind(this)}
             {...this.props}
           />
-          <Progress
-            className="mt1 mb1 rounded"
-            innerClassName="rounded-left"
-            value={currentTime / duration * 100 || 0}
-            {...this.props}
-          />
         </ButtonToolbar>
       </div>
     );
   }
 
   render() {
-    const styles = require('./Player.scss');
-    console.log(styles);
+    // const styles = require('./Player.scss');
     return (
       <div className="">
         {this.renderControls()}
-        {this.renderTrackList()}
+        <hr />
+        <Grid>
+          {this.renderTrackList()}
+        </Grid>
       </div>
     );
   }

@@ -73,11 +73,15 @@ export default class App extends Component {
           <Navbar.Collapse eventKey={0}>
             <Nav navbar>
               <LinkContainer to="/blog">
-                <NavItem eventKey={2}>Blog</NavItem>
+                <NavItem eventKey={1}>Blog</NavItem>
               </LinkContainer>
 
               <LinkContainer to="/projects">
                 <NavItem eventKey={2}>SourceCode</NavItem>
+              </LinkContainer>
+
+              <LinkContainer to="/sounds">
+                <NavItem eventKey={3}>Sounds</NavItem>
               </LinkContainer>
 
               <LinkContainer to="/about">
@@ -85,7 +89,7 @@ export default class App extends Component {
               </LinkContainer>
             </Nav>
             <Nav navbar pullRight>
-              <NavItem eventKey={1} target="_blank" title="rhalff's Github Profile" href="https://github.com/rhalff">
+              <NavItem eventKey={6} target="_blank" title="rhalff's Github Profile" href="https://github.com/rhalff">
                 <i className="fa fa-github"/>
               </NavItem>
             </Nav>
