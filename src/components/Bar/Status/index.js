@@ -45,11 +45,11 @@ export default class StatusBar extends Component {
     const {connected} = this.props;
     if (connected && connected.length && connected[connected.length - 1] === true) {
       return (
-        <Button bsSize="xsmall" bsStyle="success">Connected</Button>
+        <Button bsSize="xsmall" bsStyle="success">Online</Button>
       );
     }
     return (
-      <Button bsSize="xsmall" bsStyle="danger">Disconnected</Button>
+      <Button bsSize="xsmall" bsStyle="danger">Offline</Button>
     );
   }
 

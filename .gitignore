@@ -3,6 +3,7 @@ node_modules/
 dist/
 *.iml
 *.swp
+*.txt
 webpack-assets.json
 webpack-stats.json
 npm-debug.log

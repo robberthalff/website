@@ -12,7 +12,7 @@ import {
     About,
     Login,
     LoginSuccess,
-    Survey,
+    Sounds,
     NotFound,
   } from 'containers';
 
@@ -53,9 +53,9 @@ export default (store) => {
       <Route path="blog/post/:id" component={BlogPost}/>
       <Route path="blog/post/:key/:id" component={BlogPost}/>
       <Route path="projects" component={Projects}/>
+      <Route path="sounds" component={Sounds}/>
       <Route path="about" component={About}/>
       <Route path="login" component={Login}/>
-      <Route path="survey" component={Survey}/>
       <Route path="widgets" component={Widgets}/>
 
       { /* Catch all route */ }

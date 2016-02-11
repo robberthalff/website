@@ -1,51 +1,78 @@
 import React, { Component, PropTypes } from 'react';
-// import {Panel} from 'react-bootstrap';
+import {Panel, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {SOCKETME_LOCATION} from 'redux/modules/socketme';
+import {bindActionCreators} from 'redux';
+import classNames from 'classnames';
+import {
+  SOCKETME_MESSAGE,
+  SOCKETME_CONNECTED,
+  addMessage
+} from 'redux/modules/socketme';
 
 @connect(
   state => ({
-    messages: state[SOCKETME_LOCATION]
-  }))
+    messages: state.socketme[SOCKETME_MESSAGE],
+    connected: state.socketme[SOCKETME_CONNECTED]
+  }),
+  dispatch => bindActionCreators({addMessage}, dispatch))
 export default class MessageWindow extends Component {
   static propTypes = {
-    messages: PropTypes.array.isRequired
+    messages: PropTypes.array.isRequired,
+    connected: PropTypes.array,
+    addMessage: PropTypes.func.isRequired
   };
 
   static defaultProps = {
-    messages: []
   }
 
-  adjustHeader = (data) => {
-    if (data) {
-      const first = data[0];
-      if (first && first.accuracy) {
-        console.log('first accuracy', first.accuracy);
-      }
+  sendMessage = (ev) => {
+    ev.preventDefault();
+    const {message} = this.refs;
+    if (message.value) {
+      this.props.addMessage(SOCKETME_MESSAGE, {
+        id: 1,
+        sender: '@',
+        message: message.value,
+        createdAt: Date.now()
+      });
     }
   }
 
   renderMessages = () => {
     const {messages} = this.props;
     return messages.map((msg, nr) => {
-      if (msg.ip) {
-        return (
-          <p key={nr}>{msg.ip} {msg.time} {msg.statusCode} {msg.ua} {msg.method} {msg.path}</p>
-        );
-      }
-      const str = JSON.stringify(msg);
       return (
-        <p key={nr}>{str}</p>
+        <p key={nr}>{msg.message} {msg.createdAt}</p>
       );
     });
   }
 
   render() {
     const styles = require('./style.scss');
+    const {connected} = this.props;
+    const windowClass = classNames(
+      'window',
+      'messageWindow',
+      {disabled: !connected[0]}
+    );
+    console.log('WINDOW CLASS', windowClass);
     return (
-      <div className="window messageWindow">
+      <div className={windowClass}>
         <div className={styles.log}>
-          {this.renderMessages()}
+          <Panel header="Send Message">
+            <div className={styles.window}>
+              {this.renderMessages()}
+            </div>
+            <hr />
+            <input ref="message" type="text" placeholder="write message..." />
+            <Button
+              type="submit"
+              bsStyle="primary"
+              bsSize="xsmall"
+              onClick={this.sendMessage}>
+              Send
+            </Button>
+          </Panel>
         </div>
       </div>
     );

@@ -94,7 +94,7 @@ module.exports = {
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: false,  // <-------- DISABLE redux-devtools HERE
+      __DEVTOOLS__: true,  // <-------- DISABLE redux-devtools HERE
       __API_WEBSITE_HOST__: JSON.stringify(config.api.website.host),
       __API_WEBSITE_PORT__: JSON.stringify(config.api.website.port),
       __API_CONTENT_HOST__: JSON.stringify(config.api.content.host),

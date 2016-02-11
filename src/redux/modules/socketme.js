@@ -8,6 +8,7 @@ export const SOCKETME_DOPPLER = 'SocketMe/doppler';
 export const SOCKETME_LOG = 'SocketMe/log';
 export const SOCKETME_CONNECTED = 'SocketMe/connected';
 export const SOCKETME_TS = 'SocketMe/timestamp';
+export const SOCKETME_MESSAGE = 'SocketMe/message';
 
 const initialState = {
   [SOCKETME_BATTERY]: [],
@@ -18,6 +19,12 @@ const initialState = {
   [SOCKETME_LOCATION]: [],
   [SOCKETME_DOPPLER]: [],
   [SOCKETME_LOG]: [],
+  [SOCKETME_MESSAGE]: [{
+    id: 1,
+    sender: '@',
+    message: 'Welcome...',
+    createdAt: Date.now()
+  }],
   [SOCKETME_CONNECTED]: [],
   [SOCKETME_TS]: []
 };

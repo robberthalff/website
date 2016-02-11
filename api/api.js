@@ -91,8 +91,14 @@ if (config.api.website.port) {
     */
   });
 
+  let connector = null;
+
   function isSocketMe(socket) {
-    return /GT-I/.test(socket.handshake.headers['user-agent']);
+    const match = /GT-I/.test(socket.handshake.headers['user-agent']);
+    if (match) {
+      connector = socket;
+    }
+    return match;
   }
 
   io.on('connection', (socket) => {
@@ -103,6 +109,9 @@ if (config.api.website.port) {
         'DEVICE CONNECTED %s',
         socket.handshake.headers['user-agent'].match(/\((.*?)\)/).pop()
       );
+    }
+
+    if (connector) {
       io.emit('msg', {connected: true});
     }
 
@@ -127,14 +136,15 @@ if (config.api.website.port) {
 
     console.log('Client connected, total clients: %d', sockets.length);
     socket.on('disconnect', (client) => {
-      sockets.splice(sockets.indexOf(client), 1);
-      const match = sockets.filter(function(sock) {
-        return isSocketMe(sock);
-      })
-      console.log('Client disconnected, total clients: %d', sockets.length);
-      if (!match.length) {
+      console.log('Yep Client Object');
+      if (socket === connector) {
         io.emit('msg', {connected: false});
+        connector = null;
+      } else {
+        console.log('not connector!?1');
       }
+      sockets.splice(sockets.indexOf(socket), 1);
+      console.log('Client disconnected, total clients: %d', sockets.length);
     });
 
     socket.on('input', (data) => {

@@ -5,4 +5,5 @@ export Projects from './Projects/Projects';
 export Home from './Home/Home';
 export About from './About/About';
 export SocketMe from './SocketMe/SocketMe';
+export Sounds from './Sounds/Sounds';
 export NotFound from './NotFound/NotFound';
