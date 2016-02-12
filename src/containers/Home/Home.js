@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 // import { Link } from 'react-router';
-import {MessageWindow, LogWindow} from 'components';
+import {
+  MessageWindow,
+  LogWindow,
+  MotionWindow
+} from 'components';
 import config from '../../config';
 import {connect} from 'react-redux';
 import {SOCKETME_ORIENTATION, SOCKETME_SIGNAL} from 'redux/modules/socketme';
@@ -56,6 +60,9 @@ export default class Home extends Component {
             </div>
             <div className="col-xs-3">
               <MessageWindow />
+            </div>
+            <div className="col-xs-3">
+              <MotionWindow />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ export const SOCKETME_MOTION = 'SocketMe/motion';
 export const SOCKETME_ORIENTATION = 'SocketMe/orientation';
 export const SOCKETME_SIGNAL = 'SocketMe/signal';
 export const SOCKETME_WIFI = 'SocketMe/wifi';
+export const SOCKETME_COMPASS = 'SocketMe/compass';
 export const SOCKETME_LOCATION = 'SocketMe/location';
 export const SOCKETME_DOPPLER = 'SocketMe/doppler';
 export const SOCKETME_LOG = 'SocketMe/log';
@@ -14,6 +15,7 @@ const initialState = {
   [SOCKETME_BATTERY]: [],
   [SOCKETME_MOTION]: [],
   [SOCKETME_ORIENTATION]: [],
+  [SOCKETME_COMPASS]: [],
   [SOCKETME_SIGNAL]: [],
   [SOCKETME_WIFI]: [],
   [SOCKETME_LOCATION]: [],

@@ -13,6 +13,9 @@ module.exports = {
   // debug: true,
 
   assets: {
+    three: {
+      extensions: ['three']
+    },
     images: {
       extensions: [
         'jpeg',

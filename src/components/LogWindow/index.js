@@ -27,7 +27,6 @@ export default class LogWindow extends Component {
 
   renderMessages = () => {
     const {messages} = this.props;
-    console.log('RENDER MESSAGE', this.props);
     return messages.map((msg, nr) => {
       if (msg.ip) {
         return (

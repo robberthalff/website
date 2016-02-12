@@ -15,7 +15,10 @@ var serverOptions = {
   inline: true,
   lazy: false,
   publicPath: webpackConfig.output.publicPath,
-  headers: {'Access-Control-Allow-Origin': '*'},
+  // headers: {'Access-Control-Allow-Origin': '*'},
+  headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:3000'
+  },
   stats: {colors: true}
 };
 
