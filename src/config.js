@@ -24,7 +24,7 @@ module.exports = Object.assign({
   },
   app: {
     title: 'RobbertHalff',
-    description: 'If I don\'t see you no more in this world, I\'ll meet you on the next one.',
+    description: '',
     head: {
       titleTemplate: 'RobbertHalff: %s',
       meta: [
