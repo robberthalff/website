@@ -16,9 +16,10 @@ export default class Comments extends Component {
     return (
       <Well>
         <DisqusThread
-          shortname={item.name}
+          shortname="robberthalff"
           identifier={item.key}
           title={`${item.title} Comments`}
+          url={window.location.href}
           onNewComment={this.handleNewComment}
         />
       </Well>
