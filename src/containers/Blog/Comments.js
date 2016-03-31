@@ -1,20 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import DisqusThread from 'react-disqus-thread';
 import {Well} from 'react-bootstrap';
 
 export default class Comments extends Component {
+  static propTypes = {
+    item: PropTypes.object
+  }
   handleNewComment = (comment) => {
     /* eslint no-console:0 */
     console.log(comment);
   }
 
   render() {
+    const {item} = this.props;
     return (
       <Well>
         <DisqusThread
-          shortname="robberthalff"
-          identifier="robberthalff"
-          title="RobbertHalff Comments"
+          shortname={item.name}
+          identifier={item.key}
+          title={`${item.title} Comments`}
           onNewComment={this.handleNewComment}
         />
       </Well>

@@ -28,9 +28,6 @@ export default class Sounds extends Component {
             <div className="panel">
               <div className="panel-body">
                 <Well>
-                  <p>
-                    Things I record
-                  </p>
                   <Icons.SoundCloudLogoSVG />
                   <hr />
                   <div className="well">

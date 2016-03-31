@@ -20,7 +20,6 @@ import qs from 'query-string';
 import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 
-
 const targetUrl = 'http://' + config.api.website.host + ':' + config.api.website.port;
 const pretty = new PrettyError();
 const app = new Express();

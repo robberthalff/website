@@ -81,7 +81,7 @@ export default class BlogPost extends Component {
                     </Col>
                   </Row>
                 </article>
-                <Comments />
+                <Comments item={item}/>
               </div>
             </div>
           </div>
