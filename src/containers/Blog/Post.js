@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {load as loadPost } from 'redux/modules/content/post';
 import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
+import moment from 'moment';
 import {Thumbnail, Row, Col} from 'react-bootstrap';
 import Comments from './Comments';
 // import Categories from './Categories';
@@ -62,13 +63,15 @@ export default class BlogPost extends Component {
   renderBlogPost = () => {
     const item = this.props.post;
     if (item) {
+      console.log(item);
+      const time = moment(item.publishedDate).format('dddd, MMMM Do YYYY');
       return (
         <div className="window blogWindow center-block">
           <div className="panel">
             <div className="panel-header">
               <div className="panel-title">
                 <h3>{item.name}</h3>
-                <time>January 21st, 2016</time>
+                <time>{time}</time>
               </div>
               <div className="panel-body">
                 <article className="media">
