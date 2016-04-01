@@ -99,6 +99,17 @@ export default class BlogPost extends Component {
   render() {
     const styles = require('./Post.scss');
     const {post = {}} = this.props;
+    const meta = [
+      {name: 'description', content: post.content.brief.md},
+      {property: 'og:type', content: 'article'},
+      {property: 'og:title', content: post.name},
+      {property: 'og:description', content: post.content.brief.md}
+    ];
+    if (post.image) {
+      meta.push({property: 'og:image', content: post.image.secure_url});
+      meta.push({property: 'og:image:width', content: post.image.width});
+      meta.push({property: 'og:image:height', content: post.image.height});
+    }
     /*
     <Col xs={4} md={4}>
       <Categories />
@@ -106,7 +117,7 @@ export default class BlogPost extends Component {
     */
     return (
       <div className={styles.blogPost}>
-        <Helmet title={post.name}/>
+        <Helmet title={post.name} meta={meta}/>
           {this.renderBlogPost()}
       </div>
     );
