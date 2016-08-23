@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import multireducer from 'multireducer';
-import { routerStateReducer } from 'redux-router';
+import { routerReducer } from 'react-router-redux';
+import { reducer as reduxAsyncConnect } from 'redux-async-connect';
 
 import auth from './auth';
 import counter from './counter';
-import {reducer as form} from 'redux-form';
+import { reducer as form } from 'redux-form';
 import info from './info';
 import posts from './content/posts';
 import post from './content/post';
@@ -13,7 +14,8 @@ import categories from './content/categories';
 import widgets from './widgets';
 
 export default combineReducers({
-  router: routerStateReducer,
+  routing: routerReducer,
+  reduxAsyncConnect,
   auth,
   form,
   multireducer: multireducer({

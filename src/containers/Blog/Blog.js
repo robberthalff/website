@@ -1,10 +1,10 @@
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {load as loadPosts } from 'redux/modules/content/posts';
-import React, {Component, PropTypes} from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { load as loadPosts } from 'redux/modules/content/posts';
+import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
-import {Well, Thumbnail, Row, Col, Pagination} from 'react-bootstrap';
-import {Link} from 'react-router';
+import { Well, Thumbnail, Row, Col, Pagination } from 'react-bootstrap';
+import { Link } from 'react-router';
 import marked from 'marked';
 // import Categories from './Categories';
 import moment from 'moment';
@@ -14,7 +14,7 @@ import moment from 'moment';
     posts: state.posts.data
   }),
   dispatch => bindActionCreators({
-    loadPosts: loadPosts
+    loadPosts
   }, dispatch))
 export default class Blog extends Component {
   static propTypes = {
@@ -79,7 +79,7 @@ export default class Blog extends Component {
   }
 
   renderShowing = () => {
-    const {posts} = this.props;
+    const { posts } = this.props;
     if (posts && posts.length > 10) {
       return (
         <div className="lead text-muted">Showing <strong>1</strong> to <strong>10</strong> of <strong>273</strong> posts</div>
@@ -89,14 +89,15 @@ export default class Blog extends Component {
   }
 
   renderPagination = () => {
-    const {posts} = this.props;
+    const { posts } = this.props;
     if (posts && posts.length > 10) {
       return (
         <Pagination
-        bsSize="small"
-        items={10}
-        activePage={this.state.activePage}
-        onSelect={this.handleSelect} />
+          bsSize="small"
+          items={10}
+          activePage={this.state.activePage}
+          onSelect={this.handleSelect}
+        />
       );
     }
     return null;
@@ -119,7 +120,7 @@ export default class Blog extends Component {
     console.log(styles);
     return (
       <div className={styles.blog}>
-        <Helmet title="Blog"/>
+        <Helmet title="Blog" />
         <div className="container">
           <div className="window blogWindow center-block">
             <div className="panel">

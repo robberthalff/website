@@ -17,7 +17,7 @@ describe('makeRouteHooksSafe', () => {
           <Route path="1" />
           <Route onEnter={onEnter}>
             <Route path="2" />
-            <Route path="3" onEnter={onEnter}/>
+            <Route path="3" onEnter={onEnter} />
           </Route>
         </Route>
       );
@@ -39,16 +39,16 @@ describe('makeRouteHooksSafe', () => {
       return {
         path: '/',
         indexRoute: {
-          onEnter: onEnter
+          onEnter
         },
-        onEnter: onEnter,
+        onEnter,
         childRoutes: [
-          {path: '1'},
+          { path: '1' },
           {
-            onEnter: onEnter,
+            onEnter,
             childRoutes: [
-              {path: '2'},
-              {path: '3'}
+              { path: '2' },
+              { path: '3' }
             ],
           }
         ]

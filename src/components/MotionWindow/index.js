@@ -1,20 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import {Panel} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Panel } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
-import viz from './viz';
-import THREE from 'three';
-THREE.ImageUtils.crossOrigin = '';
 import {
   SOCKETME_ORIENTATION,
   SOCKETME_CONNECTED
 } from 'redux/modules/socketme';
+import viz from './viz';
+import THREE from 'three';
+
+// THREE.ImageUtils.crossOrigin = '';
 
 @connect(
   state => ({
     messages: state.socketme[SOCKETME_ORIENTATION],
     connected: state.socketme[SOCKETME_CONNECTED]
   }))
+
 export default class MotionWindow extends Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
@@ -32,7 +34,7 @@ export default class MotionWindow extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {messages} = nextProps;
+    const { messages } = nextProps;
     const params = messages[messages.length - 1];
     requestAnimationFrame(this.viz.update.bind(this, params));
   }

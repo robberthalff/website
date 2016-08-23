@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {SOCKETME_LOCATION} from 'redux/modules/socketme';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { SOCKETME_LOCATION } from 'redux/modules/socketme';
 
-@connect( state => ({location: state.socketme[SOCKETME_LOCATION]}) )
+@connect(state => ({ location: state.socketme[SOCKETME_LOCATION] }))
 export default class LocationBar extends Component {
   static propTypes = {
     location: PropTypes.array
@@ -13,7 +13,7 @@ export default class LocationBar extends Component {
   }
 
   renderLocation() {
-    const {location} = this.props;
+    const { location } = this.props;
     return location.map((_location, nr) => {
       return (<strong key={nr}>{_location.latitude} {_location.longitude}</strong>);
     });

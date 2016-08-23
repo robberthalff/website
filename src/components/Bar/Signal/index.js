@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {SOCKETME_SIGNAL} from 'redux/modules/socketme';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { SOCKETME_SIGNAL } from 'redux/modules/socketme';
 
-@connect( state => ({signal: state.socketme[SOCKETME_SIGNAL]}) )
+@connect(state => ({ signal: state.socketme[SOCKETME_SIGNAL] }))
 export default class SignalBar extends Component {
   static propTypes = {
     signal: PropTypes.array
@@ -13,7 +13,7 @@ export default class SignalBar extends Component {
   }
 
   renderSignals() {
-    const {signal} = this.props;
+    const { signal } = this.props;
     return signal.map((_signal, nr) => {
       return (<strong key={nr}>dBm: {_signal.dBm}</strong>);
     });

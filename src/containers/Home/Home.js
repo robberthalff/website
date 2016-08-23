@@ -6,8 +6,8 @@ import {
   MotionWindow
 } from 'components';
 import config from '../../config';
-import {connect} from 'react-redux';
-import {SOCKETME_ORIENTATION, SOCKETME_SIGNAL} from 'redux/modules/socketme';
+import { connect } from 'react-redux';
+import { SOCKETME_ORIENTATION, SOCKETME_SIGNAL } from 'redux/modules/socketme';
 import Helmet from 'react-helmet';
 @connect(
   state => ({
@@ -43,7 +43,7 @@ export default class Home extends Component {
     */
     return (
       <div className={styles.home}>
-        <Helmet title="Home"/>
+        <Helmet title="Home" />
         <div className={styles.masthead}>
           <div className="container">
             <h1>{config.app.title}</h1>
@@ -62,7 +62,6 @@ export default class Home extends Component {
               <MessageWindow />
             </div>
             <div className="col-xs-3">
-              <MotionWindow />
             </div>
           </div>
         </div>

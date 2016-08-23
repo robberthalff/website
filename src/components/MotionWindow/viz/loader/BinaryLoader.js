@@ -1,11 +1,12 @@
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-/* eslint id-length: 0, no-var: 0, camelcase: 0, func-names: 0, vars-on-top: 0*/
-/* eslint one-var: 0, no-use-before-define: 0, key-spacing: 0, no-shadow: 0, no-param-reassign: 0 */
-import THREE from 'three';
+/* eslint-disable max-len, no-mixed-operators, no-var, vars-on-top, camelcase, one-var */
+/* eslint-disable one-var-declaration-per-line, no-param-reassign, func-names, prefer-arrow-callback */
+/* eslint-disable no-use-before-define, no-shadow, no-underscore-dangle */
+const THREE = require('three');
 
-THREE.BinaryLoader = function(manager) {
+THREE.BinaryLoader = function (manager) {
   if (typeof manager === 'boolean') {
     console.warn('THREE.BinaryLoader: showStatus parameter has been removed from constructor.');
     manager = undefined;
@@ -32,7 +33,7 @@ THREE.BinaryLoader.prototype = {
   //		- callback (required)
   //		- texturePath (optional: if not specified, textures will be assumed to be in the same folder as JS model file)
   //		- binaryPath (optional: if not specified, binary file will be assumed to be in the same folder as JS model file)
-  load: function(url, onLoad, onProgress, onError) {
+  load(url, onLoad, onProgress, onError) {
     // todo: unify load API to for easier SceneLoader use
     var texturePath = this.texturePath || THREE.Loader.prototype.extractUrlBase(url);
     var binaryPath = this.binaryPath || THREE.Loader.prototype.extractUrlBase(url);
@@ -43,7 +44,7 @@ THREE.BinaryLoader.prototype = {
 
     var jsonloader = new THREE.XHRLoader(this.manager);
     this.setCrossOrigin('anonymous');
-    jsonloader.load(url, function(data) {
+    jsonloader.load(url, function (data) {
       var json = JSON.parse(data);
 
       var bufferUrl = binaryPath + json.buffers;
@@ -51,7 +52,7 @@ THREE.BinaryLoader.prototype = {
       var bufferLoader = new THREE.XHRLoader(scope.manager);
       scope.setCrossOrigin('anonymous');
       bufferLoader.setResponseType('arraybuffer');
-      bufferLoader.load(bufferUrl, function(bufData) {
+      bufferLoader.load(bufferUrl, function (bufData) {
         // IEWEBGL needs this ???
         // buffer = (new Uint8Array(xhr.responseBody)).buffer;
 
@@ -61,20 +62,20 @@ THREE.BinaryLoader.prototype = {
     }, onProgress, onError);
   },
 
-  setBinaryPath: function(value) {
+  setBinaryPath(value) {
     this.binaryPath = value;
   },
 
-  setCrossOrigin: function(value) {
+  setCrossOrigin(value) {
     this.crossOrigin = value;
   },
 
-  setTexturePath: function(value) {
+  setTexturePath(value) {
     this.texturePath = value;
   },
 
-  parse: function(data, callback, texturePath, jsonMaterials) {
-    var Model = function(/* texturePath */) {
+  parse(data, callback, texturePath, jsonMaterials) {
+    var Model = function (/* texturePath */) {
       var scope = this,
         currentOffset = 0,
         md,
@@ -157,31 +158,31 @@ THREE.BinaryLoader.prototype = {
 
       function parseMetaData(data, offset) {
         var metaData = {
-          'signature'               : parseString(data, offset, 12),
-          'header_bytes'            : parseUChar8(data, offset + 12),
+          signature: parseString(data, offset, 12),
+          header_bytes: parseUChar8(data, offset + 12),
 
-          'vertex_coordinate_bytes' : parseUChar8(data, offset + 13),
-          'normal_coordinate_bytes' : parseUChar8(data, offset + 14),
-          'uv_coordinate_bytes'     : parseUChar8(data, offset + 15),
+          vertex_coordinate_bytes: parseUChar8(data, offset + 13),
+          normal_coordinate_bytes: parseUChar8(data, offset + 14),
+          uv_coordinate_bytes: parseUChar8(data, offset + 15),
 
-          'vertex_index_bytes'      : parseUChar8(data, offset + 16),
-          'normal_index_bytes'      : parseUChar8(data, offset + 17),
-          'uv_index_bytes'          : parseUChar8(data, offset + 18),
-          'material_index_bytes'    : parseUChar8(data, offset + 19),
+          vertex_index_bytes: parseUChar8(data, offset + 16),
+          normal_index_bytes: parseUChar8(data, offset + 17),
+          uv_index_bytes: parseUChar8(data, offset + 18),
+          material_index_bytes: parseUChar8(data, offset + 19),
 
-          'nvertices'    : parseUInt32(data, offset + 20),
-          'nnormals'     : parseUInt32(data, offset + 20 + 4 * 1),
-          'nuvs'         : parseUInt32(data, offset + 20 + 4 * 2),
+          nvertices: parseUInt32(data, offset + 20),
+          nnormals: parseUInt32(data, offset + 20 + 4 * 1),
+          nuvs: parseUInt32(data, offset + 20 + 4 * 2),
 
-          'ntri_flat'      : parseUInt32(data, offset + 20 + 4 * 3),
-          'ntri_smooth'    : parseUInt32(data, offset + 20 + 4 * 4),
-          'ntri_flat_uv'   : parseUInt32(data, offset + 20 + 4 * 5),
-          'ntri_smooth_uv' : parseUInt32(data, offset + 20 + 4 * 6),
+          ntri_flat: parseUInt32(data, offset + 20 + 4 * 3),
+          ntri_smooth: parseUInt32(data, offset + 20 + 4 * 4),
+          ntri_flat_uv: parseUInt32(data, offset + 20 + 4 * 5),
+          ntri_smooth_uv: parseUInt32(data, offset + 20 + 4 * 6),
 
-          'nquad_flat'      : parseUInt32(data, offset + 20 + 4 * 7),
-          'nquad_smooth'    : parseUInt32(data, offset + 20 + 4 * 8),
-          'nquad_flat_uv'   : parseUInt32(data, offset + 20 + 4 * 9),
-          'nquad_smooth_uv' : parseUInt32(data, offset + 20 + 4 * 10)
+          nquad_flat: parseUInt32(data, offset + 20 + 4 * 7),
+          nquad_smooth: parseUInt32(data, offset + 20 + 4 * 8),
+          nquad_flat_uv: parseUInt32(data, offset + 20 + 4 * 9),
+          nquad_smooth_uv: parseUInt32(data, offset + 20 + 4 * 10)
         };
 
         return metaData;
@@ -192,8 +193,8 @@ THREE.BinaryLoader.prototype = {
 
         var text = '';
 
-        for (var i = 0; i < length; i ++) {
-          text += String.fromCharCode(charArray[ offset + i ]);
+        for (var i = 0; i < length; i++) {
+          text += String.fromCharCode(charArray[offset + i]);
         }
 
         return text;
@@ -202,13 +203,13 @@ THREE.BinaryLoader.prototype = {
       function parseUChar8(data, offset) {
         var charArray = new Uint8Array(data, offset, 1);
 
-        return charArray[ 0 ];
+        return charArray[0];
       }
 
       function parseUInt32(data, offset) {
         var intArray = new Uint32Array(data, offset, 1);
 
-        return intArray[ 0 ];
+        return intArray[0];
       }
 
       function init_vertices(start) {
@@ -218,10 +219,10 @@ THREE.BinaryLoader.prototype = {
 
         var i, x, y, z;
 
-        for (i = 0; i < nElements; i ++) {
-          x = coordArray[ i * 3 ];
-          y = coordArray[ i * 3 + 1 ];
-          z = coordArray[ i * 3 + 2 ];
+        for (i = 0; i < nElements; i++) {
+          x = coordArray[i * 3];
+          y = coordArray[i * 3 + 1];
+          z = coordArray[i * 3 + 2];
 
           scope.vertices.push(new THREE.Vector3(x, y, z));
         }
@@ -236,10 +237,10 @@ THREE.BinaryLoader.prototype = {
 
           var i, x, y, z;
 
-          for (i = 0; i < nElements; i ++) {
-            x = normalArray[ i * 3 ];
-            y = normalArray[ i * 3 + 1 ];
-            z = normalArray[ i * 3 + 2 ];
+          for (i = 0; i < nElements; i++) {
+            x = normalArray[i * 3];
+            y = normalArray[i * 3 + 1];
+            z = normalArray[i * 3 + 2];
 
             normals.push(x / 127, y / 127, z / 127);
           }
@@ -256,9 +257,9 @@ THREE.BinaryLoader.prototype = {
 
           var i, u, v;
 
-          for (i = 0; i < nElements; i ++) {
-            u = uvArray[ i * 2 ];
-            v = uvArray[ i * 2 + 1 ];
+          for (i = 0; i < nElements; i++) {
+            u = uvArray[i * 2];
+            v = uvArray[i * 2 + 1];
 
             uvs.push(u, v);
           }
@@ -272,21 +273,21 @@ THREE.BinaryLoader.prototype = {
 
         var uvIndexBuffer = new Uint32Array(data, offset, 3 * nElements);
 
-        for (i = 0; i < nElements; i ++) {
-          uva = uvIndexBuffer[ i * 3 ];
-          uvb = uvIndexBuffer[ i * 3 + 1 ];
-          uvc = uvIndexBuffer[ i * 3 + 2 ];
+        for (i = 0; i < nElements; i++) {
+          uva = uvIndexBuffer[i * 3];
+          uvb = uvIndexBuffer[i * 3 + 1];
+          uvc = uvIndexBuffer[i * 3 + 2];
 
-          u1 = uvs[ uva * 2 ];
-          v1 = uvs[ uva * 2 + 1 ];
+          u1 = uvs[uva * 2];
+          v1 = uvs[uva * 2 + 1];
 
-          u2 = uvs[ uvb * 2 ];
-          v2 = uvs[ uvb * 2 + 1 ];
+          u2 = uvs[uvb * 2];
+          v2 = uvs[uvb * 2 + 1];
 
-          u3 = uvs[ uvc * 2 ];
-          v3 = uvs[ uvc * 2 + 1 ];
+          u3 = uvs[uvc * 2];
+          v3 = uvs[uvc * 2 + 1];
 
-          scope.faceVertexUvs[ 0 ].push([
+          scope.faceVertexUvs[0].push([
             new THREE.Vector2(u1, v1),
             new THREE.Vector2(u2, v2),
             new THREE.Vector2(u3, v3)
@@ -299,31 +300,31 @@ THREE.BinaryLoader.prototype = {
 
         var uvIndexBuffer = new Uint32Array(data, offset, 4 * nElements);
 
-        for (i = 0; i < nElements; i ++) {
-          uva = uvIndexBuffer[ i * 4 ];
-          uvb = uvIndexBuffer[ i * 4 + 1 ];
-          uvc = uvIndexBuffer[ i * 4 + 2 ];
-          uvd = uvIndexBuffer[ i * 4 + 3 ];
+        for (i = 0; i < nElements; i++) {
+          uva = uvIndexBuffer[i * 4];
+          uvb = uvIndexBuffer[i * 4 + 1];
+          uvc = uvIndexBuffer[i * 4 + 2];
+          uvd = uvIndexBuffer[i * 4 + 3];
 
-          u1 = uvs[ uva * 2 ];
-          v1 = uvs[ uva * 2 + 1 ];
+          u1 = uvs[uva * 2];
+          v1 = uvs[uva * 2 + 1];
 
-          u2 = uvs[ uvb * 2 ];
-          v2 = uvs[ uvb * 2 + 1 ];
+          u2 = uvs[uvb * 2];
+          v2 = uvs[uvb * 2 + 1];
 
-          u3 = uvs[ uvc * 2 ];
-          v3 = uvs[ uvc * 2 + 1 ];
+          u3 = uvs[uvc * 2];
+          v3 = uvs[uvc * 2 + 1];
 
-          u4 = uvs[ uvd * 2 ];
-          v4 = uvs[ uvd * 2 + 1 ];
+          u4 = uvs[uvd * 2];
+          v4 = uvs[uvd * 2 + 1];
 
-          scope.faceVertexUvs[ 0 ].push([
+          scope.faceVertexUvs[0].push([
             new THREE.Vector2(u1, v1),
             new THREE.Vector2(u2, v2),
             new THREE.Vector2(u4, v4)
           ]);
 
-          scope.faceVertexUvs[ 0 ].push([
+          scope.faceVertexUvs[0].push([
             new THREE.Vector2(u2, v2),
             new THREE.Vector2(u3, v3),
             new THREE.Vector2(u4, v4)
@@ -337,12 +338,12 @@ THREE.BinaryLoader.prototype = {
         var vertexIndexBuffer = new Uint32Array(data, offsetVertices, 3 * nElements);
         var materialIndexBuffer = new Uint16Array(data, offsetMaterials, nElements);
 
-        for (i = 0; i < nElements; i ++) {
-          a = vertexIndexBuffer[ i * 3 ];
-          b = vertexIndexBuffer[ i * 3 + 1 ];
-          c = vertexIndexBuffer[ i * 3 + 2 ];
+        for (i = 0; i < nElements; i++) {
+          a = vertexIndexBuffer[i * 3];
+          b = vertexIndexBuffer[i * 3 + 1];
+          c = vertexIndexBuffer[i * 3 + 2];
 
-          m = materialIndexBuffer[ i ];
+          m = materialIndexBuffer[i];
 
           scope.faces.push(new THREE.Face3(a, b, c, null, null, m));
         }
@@ -354,13 +355,13 @@ THREE.BinaryLoader.prototype = {
         var vertexIndexBuffer = new Uint32Array(data, offsetVertices, 4 * nElements);
         var materialIndexBuffer = new Uint16Array(data, offsetMaterials, nElements);
 
-        for (i = 0; i < nElements; i ++) {
-          a = vertexIndexBuffer[ i * 4 ];
-          b = vertexIndexBuffer[ i * 4 + 1 ];
-          c = vertexIndexBuffer[ i * 4 + 2 ];
-          d = vertexIndexBuffer[ i * 4 + 3 ];
+        for (i = 0; i < nElements; i++) {
+          a = vertexIndexBuffer[i * 4];
+          b = vertexIndexBuffer[i * 4 + 1];
+          c = vertexIndexBuffer[i * 4 + 2];
+          d = vertexIndexBuffer[i * 4 + 3];
 
-          m = materialIndexBuffer[ i ];
+          m = materialIndexBuffer[i];
 
           scope.faces.push(new THREE.Face3(a, b, d, null, null, m));
           scope.faces.push(new THREE.Face3(b, c, d, null, null, m));
@@ -375,28 +376,28 @@ THREE.BinaryLoader.prototype = {
         var normalIndexBuffer = new Uint32Array(data, offsetNormals, 3 * nElements);
         var materialIndexBuffer = new Uint16Array(data, offsetMaterials, nElements);
 
-        for (i = 0; i < nElements; i ++) {
-          a = vertexIndexBuffer[ i * 3 ];
-          b = vertexIndexBuffer[ i * 3 + 1 ];
-          c = vertexIndexBuffer[ i * 3 + 2 ];
+        for (i = 0; i < nElements; i++) {
+          a = vertexIndexBuffer[i * 3];
+          b = vertexIndexBuffer[i * 3 + 1];
+          c = vertexIndexBuffer[i * 3 + 2];
 
-          na = normalIndexBuffer[ i * 3 ];
-          nb = normalIndexBuffer[ i * 3 + 1 ];
-          nc = normalIndexBuffer[ i * 3 + 2 ];
+          na = normalIndexBuffer[i * 3];
+          nb = normalIndexBuffer[i * 3 + 1];
+          nc = normalIndexBuffer[i * 3 + 2];
 
-          m = materialIndexBuffer[ i ];
+          m = materialIndexBuffer[i];
 
-          var nax = normals[ na * 3 ],
-            nay = normals[ na * 3 + 1 ],
-            naz = normals[ na * 3 + 2 ],
+          var nax = normals[na * 3],
+            nay = normals[na * 3 + 1],
+            naz = normals[na * 3 + 2],
 
-            nbx = normals[ nb * 3 ],
-            nby = normals[ nb * 3 + 1 ],
-            nbz = normals[ nb * 3 + 2 ],
+            nbx = normals[nb * 3],
+            nby = normals[nb * 3 + 1],
+            nbz = normals[nb * 3 + 2],
 
-            ncx = normals[ nc * 3 ],
-            ncy = normals[ nc * 3 + 1 ],
-            ncz = normals[ nc * 3 + 2 ];
+            ncx = normals[nc * 3],
+            ncy = normals[nc * 3 + 1],
+            ncz = normals[nc * 3 + 2];
 
           scope.faces.push(new THREE.Face3(a, b, c, [
             new THREE.Vector3(nax, nay, naz),
@@ -414,34 +415,34 @@ THREE.BinaryLoader.prototype = {
         var normalIndexBuffer = new Uint32Array(data, offsetNormals, 4 * nElements);
         var materialIndexBuffer = new Uint16Array(data, offsetMaterials, nElements);
 
-        for (i = 0; i < nElements; i ++) {
-          a = vertexIndexBuffer[ i * 4 ];
-          b = vertexIndexBuffer[ i * 4 + 1 ];
-          c = vertexIndexBuffer[ i * 4 + 2 ];
-          d = vertexIndexBuffer[ i * 4 + 3 ];
+        for (i = 0; i < nElements; i++) {
+          a = vertexIndexBuffer[i * 4];
+          b = vertexIndexBuffer[i * 4 + 1];
+          c = vertexIndexBuffer[i * 4 + 2];
+          d = vertexIndexBuffer[i * 4 + 3];
 
-          na = normalIndexBuffer[ i * 4 ];
-          nb = normalIndexBuffer[ i * 4 + 1 ];
-          nc = normalIndexBuffer[ i * 4 + 2 ];
-          nd = normalIndexBuffer[ i * 4 + 3 ];
+          na = normalIndexBuffer[i * 4];
+          nb = normalIndexBuffer[i * 4 + 1];
+          nc = normalIndexBuffer[i * 4 + 2];
+          nd = normalIndexBuffer[i * 4 + 3];
 
-          m = materialIndexBuffer[ i ];
+          m = materialIndexBuffer[i];
 
-          var nax = normals[ na * 3 ],
-            nay = normals[ na * 3 + 1 ],
-            naz = normals[ na * 3 + 2 ],
+          var nax = normals[na * 3],
+            nay = normals[na * 3 + 1],
+            naz = normals[na * 3 + 2],
 
-            nbx = normals[ nb * 3 ],
-            nby = normals[ nb * 3 + 1 ],
-            nbz = normals[ nb * 3 + 2 ],
+            nbx = normals[nb * 3],
+            nby = normals[nb * 3 + 1],
+            nbz = normals[nb * 3 + 2],
 
-            ncx = normals[ nc * 3 ],
-            ncy = normals[ nc * 3 + 1 ],
-            ncz = normals[ nc * 3 + 2 ],
+            ncx = normals[nc * 3],
+            ncy = normals[nc * 3 + 1],
+            ncz = normals[nc * 3 + 2],
 
-            ndx = normals[ nd * 3 ],
-            ndy = normals[ nd * 3 + 1 ],
-            ndz = normals[ nd * 3 + 2 ];
+            ndx = normals[nd * 3],
+            ndy = normals[nd * 3 + 1],
+            ndz = normals[nd * 3 + 2];
 
           scope.faces.push(new THREE.Face3(a, b, d, [
             new THREE.Vector3(nax, nay, naz),

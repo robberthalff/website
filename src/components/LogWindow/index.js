@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 // import {Panel} from 'react-bootstrap';
-import {connect} from 'react-redux';
-import {SOCKETME_LOG} from 'redux/modules/socketme';
+import { connect } from 'react-redux';
+import { SOCKETME_LOG } from 'redux/modules/socketme';
 
 @connect(
   state => ({
@@ -26,7 +26,7 @@ export default class LogWindow extends Component {
   }
 
   renderMessages = () => {
-    const {messages} = this.props;
+    const { messages } = this.props;
     return messages.map((msg, nr) => {
       if (msg.ip) {
         return (

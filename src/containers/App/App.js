@@ -9,7 +9,7 @@ import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/module
 import { pushState } from 'redux-router';
 import connectData from 'helpers/connectData';
 import config from '../../config';
-import {StatusBar} from '../../components';
+import { StatusBar } from '../../components';
 
 function fetchData(getState, dispatch) {
   const promises = [];
@@ -24,8 +24,8 @@ function fetchData(getState, dispatch) {
 
 @connectData(fetchData)
 @connect(
-  state => ({user: state.auth.user}),
-  {logout, pushState})
+  state => ({ user: state.auth.user }),
+  { logout, pushState })
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -58,16 +58,16 @@ export default class App extends Component {
     const styles = require('./App.scss');
     return (
       <div className={styles.app}>
-        <Helmet {...config.app.head}/>
+        <Helmet {...config.app.head} />
         <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/" activeStyle={{color: '#33e0ff'}}>
-                <div className={styles.brand}/>
+              <IndexLink to="/" activeStyle={{ color: '#33e0ff' }}>
+                <div className={styles.brand} />
                 <span>{config.app.title}</span>
               </IndexLink>
             </Navbar.Brand>
-            <Navbar.Toggle/>
+            <Navbar.Toggle />
           </Navbar.Header>
 
           <Navbar.Collapse eventKey={0}>
@@ -90,7 +90,7 @@ export default class App extends Component {
             </Nav>
             <Nav navbar pullRight>
               <NavItem eventKey={6} target="_blank" title="rhalff's Github Profile" href="https://github.com/rhalff">
-                <i className="fa fa-github"/>
+                <i className="fa fa-github" />
               </NavItem>
             </Nav>
           </Navbar.Collapse>

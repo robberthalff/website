@@ -1,4 +1,4 @@
-require('babel/polyfill');
+require('babel-polyfill');
 
 const environment = {
   development: {
@@ -28,21 +28,21 @@ module.exports = Object.assign({
     head: {
       titleTemplate: 'RobbertHalff: %s',
       meta: [
-        {name: 'description', content: 'All the modern best practices inside one person :p'},
-        {charset: 'utf-8'},
-        {property: 'og:site_name', content: 'RobbertHalff'},
-        {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
-        {property: 'og:locale', content: 'en_US'},
-        {property: 'og:title', content: 'RobbertHalff'},
-        {property: 'og:description', content: 'Website of Robbert Jan Halff.'},
-        {property: 'og:card', content: 'summary'},
-        {property: 'og:site', content: '@rhalff'},
-        {property: 'og:creator', content: '@rhalff'},
-        {property: 'og:title', content: 'RobbertHalff'},
-        {property: 'og:description', content: 'All the modern best practices in one person :p'},
-        {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
-        {property: 'og:image:width', content: '200'},
-        {property: 'og:image:height', content: '200'}
+        { name: 'description', content: 'All the modern best practices inside one person :p' },
+        { charset: 'utf-8' },
+        { property: 'og:site_name', content: 'RobbertHalff' },
+        { property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg' },
+        { property: 'og:locale', content: 'en_US' },
+        { property: 'og:title', content: 'RobbertHalff' },
+        { property: 'og:description', content: 'Website of Robbert Jan Halff.' },
+        { property: 'og:card', content: 'summary' },
+        { property: 'og:site', content: '@rhalff' },
+        { property: 'og:creator', content: '@rhalff' },
+        { property: 'og:title', content: 'RobbertHalff' },
+        { property: 'og:description', content: 'All the modern best practices in one person :p' },
+        { property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg' },
+        { property: 'og:image:width', content: '200' },
+        { property: 'og:image:height', content: '200' }
       ]
     }
   },

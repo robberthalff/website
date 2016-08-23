@@ -1,9 +1,10 @@
+import axon from 'axon';
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import config from '../src/config';
 import * as actions from './actions/index';
-import {mapUrl} from 'utils/url.js';
+import { mapUrl } from 'utils/url.js';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import cors from 'cors';
@@ -14,9 +15,12 @@ const app = express();
 
 const server = new http.Server(app);
 
-import axon from 'axon';
 const sock = axon.socket('sub-emitter');
 sock.bind(5000);
+
+function isSocketMe(socket) {
+  return /GT-I/.test(socket.handshake.headers['user-agent']);
+}
 
 const io = new SocketIo(server);
 io.path('/ws');
@@ -35,7 +39,7 @@ app.use(bodyParser.json());
 app.use((req, res) => {
   const splittedUrlPath = req.url.split('?')[0].split('/').slice(1);
 
-  const {action, params} = mapUrl(actions, splittedUrlPath);
+  const { action, params } = mapUrl(actions, splittedUrlPath);
 
   if (action) {
     action(req, params)
@@ -93,18 +97,11 @@ if (config.api.website.port) {
 
   let connector = null;
 
-  function isSocketMe(socket) {
-    const match = /GT-I/.test(socket.handshake.headers['user-agent']);
-    if (match) {
-      connector = socket;
-    }
-    return match;
-  }
-
   io.on('connection', (socket) => {
     sockets.push(socket);
 
     if (isSocketMe(socket)) {
+      connector = socket;
       console.log(
         'DEVICE CONNECTED %s',
         socket.handshake.headers['user-agent'].match(/\((.*?)\)/).pop()
@@ -112,7 +109,7 @@ if (config.api.website.port) {
     }
 
     if (connector) {
-      io.emit('msg', {connected: true});
+      io.emit('msg', { connected: true });
     }
 
     function history() {
@@ -135,10 +132,10 @@ if (config.api.website.port) {
     socket.on('history', history);
 
     console.log('Client connected, total clients: %d', sockets.length);
-    socket.on('disconnect', (client) => {
+    socket.on('disconnect', () => {
       console.log('Yep Client Object');
       if (socket === connector) {
-        io.emit('msg', {connected: false});
+        io.emit('msg', { connected: false });
         connector = null;
       } else {
         console.log('not connector!?1');

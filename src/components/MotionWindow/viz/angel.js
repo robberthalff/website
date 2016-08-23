@@ -93,7 +93,7 @@ export default function Angel(container) {
   function update(params = {}) {
     if (params.beta && params.gamma) {
       camera.position.x += (params.beta - camera.position.x) * 1;
-      camera.position.y += (- params.gamma - camera.position.y) * 1;
+      camera.position.y += (-params.gamma - camera.position.y) * 1;
       camera.position.z = (params.alpha + 100) * 10;
       // console.log(camera.position);
       camera.lookAt(scene.position);

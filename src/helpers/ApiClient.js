@@ -20,8 +20,13 @@ function formatUrl(path, config) {
  */
 class _ApiClient {
   constructor(req, config) {
-    methods.forEach((method) =>
+    methods.forEach((method) => {
+      console.log('going to build', method);
       this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
+        console.log('GOING TO REQUEST', method, path, config);
+        if (/undefined/.test(path)) {
+          throw Error('no you are not');
+        }
         const request = superagent[method](formatUrl(path, config));
 
         if (params) {
@@ -37,7 +42,7 @@ class _ApiClient {
         }
 
         request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
-      }));
+      }); });
   }
 }
 

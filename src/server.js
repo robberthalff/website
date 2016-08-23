@@ -12,16 +12,17 @@ import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
 
-import {ReduxRouter} from 'redux-router';
-import createHistory from 'history/lib/createMemoryHistory';
-import {reduxReactRouter, match} from 'redux-router/server';
-import {Provider} from 'react-redux';
-import qs from 'query-string';
+// Redux
+import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
+import { Provider } from 'react-redux';
+import createHistory from 'react-router/lib/createMemoryHistory';
+
+import { match } from 'react-router';
 import getRoutes from './routes';
-import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 
 const targetUrl = 'http://' + config.api.website.host + ':' + config.api.website.port;
 const pretty = new PrettyError();
+
 const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
@@ -29,18 +30,16 @@ const proxy = httpProxy.createProxyServer({
   ws: true
 });
 
-//
 import axon from 'axon';
 const sock = axon.socket('pub-emitter');
 sock.connect(5000);
-import {getLogObject} from 'simple-express-json-logger';
+import { getLogObject } from 'simple-express-json-logger';
 app.use((req, res, next) => {
   sock.emit('log:message',
     getLogObject(req, res, process.hrtime(), { tags: null, loggedFromEnv: null })
   );
   next();
 });
-//
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
@@ -49,11 +48,11 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
-  proxy.web(req, res, {target: targetUrl});
+  proxy.web(req, res, { target: targetUrl });
 });
 
 app.use('/ws', (req, res) => {
-  proxy.web(req, res, {target: targetUrl + '/ws'});
+  proxy.web(req, res, { target: targetUrl + '/ws' });
 });
 
 server.on('upgrade', (req, socket, head) => {
@@ -67,10 +66,10 @@ proxy.on('error', (error, req, res) => {
     console.error('proxy error', error);
   }
   if (!res.headersSent) {
-    res.writeHead(500, {'content-type': 'application/json'});
+    res.writeHead(500, { 'content-type': 'application/json' });
   }
 
-  json = {error: 'proxy_error', reason: error.message};
+  json = { error: 'proxy_error', reason: error.message };
   res.end(JSON.stringify(json));
 });
 
@@ -83,13 +82,15 @@ app.use((req, res) => {
   const clients = {
     website: new ApiClient(req, config.api.website),
     content: new ApiClient(req, config.api.content)
-  }
+  };
 
-  const store = createStore(reduxReactRouter, getRoutes, createHistory, clients);
+  const history = createHistory(req.originalUrl);
+
+  const store = createStore(history, clients);
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
-      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
+      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store} />));
   }
 
   if (__DISABLE_SSR__) {
@@ -97,43 +98,36 @@ app.use((req, res) => {
     return;
   }
 
-  store.dispatch(match(req.originalUrl, (error, redirectLocation, routerState) => {
+  match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
       console.error('ROUTER ERROR:', pretty.render(error));
       res.status(500);
       hydrateOnClient();
-    } else if (!routerState) {
-      res.status(500);
-      hydrateOnClient();
-    } else {
-      // Workaround redux-router query string issue:
-      // https://github.com/rackt/redux-router/issues/106
-      if (routerState.location.search && !routerState.location.query) {
-        routerState.location.query = qs.parse(routerState.location.search);
-      }
-
-      store.getState().router.then(() => {
+    } else if (renderProps) {
+      // loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
+      console.log(renderProps);
+      loadOnServer({ ...renderProps, store, helpers: clients }).then(() => {
+        console.log('loadOnServer RENDER?');
         const component = (
           <Provider store={store} key="provider">
-            <ReduxRouter/>
+            <ReduxAsyncConnect {...renderProps} />
           </Provider>
         );
+        console.log('how can this hang');
 
-        const status = getStatusFromRoutes(routerState.routes);
-        if (status) {
-          res.status(status);
-        }
+        res.status(200);
+
+        global.navigator = { userAgent: req.headers['user-agent'] };
+
         res.send('<!doctype html>\n' +
-          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
-      }).catch((err) => {
-        console.error('DATA FETCHING ERROR:', pretty.render(err));
-        res.status(500);
-        hydrateOnClient();
+          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />));
       });
+    } else {
+      res.status(404).send('Not found');
     }
-  }));
+  });
 });
 
 if (config.port) {

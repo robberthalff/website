@@ -11,7 +11,7 @@ function renderDisqus() {
     script.src = 'https://' + SHORTNAME + '.disqus.com/embed.js';
     document.getElementsByTagName('head')[0].appendChild(script);
   } else {
-    window.DISQUS.reset({reload: true});
+    window.DISQUS.reset({ reload: true });
   }
 }
 
@@ -37,7 +37,7 @@ class DisqusThread {
   }
 
   render() {
-    const {id, title, path, ...other} = this.props;
+    const { id, title, path, ...other } = this.props;
 
     if (canUseDOM) {
       /* eslint-disable camelcase */

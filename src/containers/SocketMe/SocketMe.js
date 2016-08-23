@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Well } from 'react-bootstrap';
 import {
@@ -19,7 +19,7 @@ export default class SocketMe extends Component {
         <div className="container">
           <Well>
             <h1>SocketMe</h1>
-            <Helmet title="SocketMe"/>
+            <Helmet title="SocketMe" />
             <LocationBar />
             <WifiBar />
             <SignalBar />

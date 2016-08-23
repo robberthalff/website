@@ -15,8 +15,8 @@ export default function Surface(container) {
   const controls = new Controls(camera);
   const scene = new THREE.Scene();
 
-  const geometry = new THREE.SphereGeometry( 500, 16, 8 );
-  geometry.scale( - 1, 1, 1 );
+  const geometry = new THREE.SphereGeometry(500, 16, 8);
+  geometry.scale(-1, 1, 1);
 
   const textureLoader = new THREE.TextureLoader();
   textureLoader.crossOrigin = 'anonymous';
@@ -26,19 +26,19 @@ export default function Surface(container) {
     map: texture
   });
 
-  const mesh = new THREE.Mesh( geometry, material );
+  const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
-  const geometry2 = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
+  const geometry2 = new THREE.BoxGeometry(100, 100, 100, 4, 4, 4);
   const material2 = new THREE.MeshBasicMaterial({
     color: 0xff00ff, side: THREE.BackSide, wireframe: true
   });
 
-  const mesh2 = new THREE.Mesh( geometry2, material2 );
-  scene.add( mesh2 );
+  const mesh2 = new THREE.Mesh(geometry2, material2);
+  scene.add(mesh2);
 
   const renderer = new THREE.WebGLRenderer();
-  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(width, height);
   renderer.domElement.style.position = 'absolute';
   renderer.domElement.style.top = 0;
@@ -50,6 +50,6 @@ export default function Surface(container) {
   };
 
   return {
-    update: update
+    update
   };
 }

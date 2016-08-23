@@ -20,13 +20,11 @@ export default class GithubRepository extends Component {
 
   state = {};
 
-  componentDidMount() {
-    async () => {
-      const address = `${API_ROOT}/${this.props.username}/${this.props.repository}`;
-      const response = await fetch(address);
-      const json = await response.json();
-      this.setState(json);
-    }();
+  async componentDidMount() {
+    const address = `${API_ROOT}/${this.props.username}/${this.props.repository}`;
+    const response = await fetch(address);
+    const json = await response.json();
+    this.setState(json);
   }
 
   render() {

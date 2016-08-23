@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   ButtonToolbar,
 // Button,
@@ -39,8 +39,8 @@ export default class Player extends Component {
     const { soundCloudAudio } = this.props;
     const { playing } = this.state;
     if (playing && playlistIndex === this.state.activeIndex) {
-      soundCloudAudio.stop({playlistIndex});
-      this.setState({playing: false});
+      soundCloudAudio.stop({ playlistIndex });
+      this.setState({ playing: false });
     } else {
       this.setState({
         activeIndex: playlistIndex,
@@ -57,7 +57,7 @@ export default class Player extends Component {
       return;
     }
     if (activeIndex || activeIndex === 0) {
-      this.setState({activeIndex: ++activeIndex});
+      this.setState({ activeIndex: ++activeIndex });
     }
   }
 
@@ -67,7 +67,7 @@ export default class Player extends Component {
       return;
     }
     if (activeIndex || activeIndex === 0) {
-      this.setState({activeIndex: --activeIndex});
+      this.setState({ activeIndex: --activeIndex });
     }
   }
 
@@ -93,7 +93,8 @@ export default class Player extends Component {
             key={track.id}
             src={track.artwork_url || defaultImage}
             onClick={this.playTrackAtIndex.bind(this, nr)}
-            alt="242x200">
+            alt="242x200"
+          >
             <h3>{track.title}</h3>
             <span className="">{Timer.prettyTime(track.duration / 1000)}</span>
             <p>{track.description}</p>

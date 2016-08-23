@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Helmet from 'react-helmet';
-import { MiniInfoBar } from 'components';
 import { Well } from 'react-bootstrap';
 
 export default class About extends Component {
@@ -18,8 +17,7 @@ export default class About extends Component {
               <div className="panel-body">
                 <Well>
                   <h1>About</h1>
-                  <Helmet title="About"/>
-                  <MiniInfoBar/>
+                  <Helmet title="About" />
                 </Well>
               </div>
             </div>

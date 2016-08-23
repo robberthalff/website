@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DisqusThread from './DisqusThread';
-import {Well} from 'react-bootstrap';
+import { Well } from 'react-bootstrap';
 
 export default class Comments extends Component {
   static propTypes = {
@@ -8,7 +8,7 @@ export default class Comments extends Component {
   }
 
   render() {
-    const {item} = this.props;
+    const { item } = this.props;
     return (
       <Well>
         <DisqusThread

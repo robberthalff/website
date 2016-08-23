@@ -59,7 +59,7 @@ export default function socketme(state = initialState, action = {}) {
 
 export function addMessage(type, data) {
   return {
-    type: type,
+    type,
     message: data
   };
 }

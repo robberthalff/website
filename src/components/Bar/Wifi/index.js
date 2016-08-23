@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {SOCKETME_WIFI} from 'redux/modules/socketme';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { SOCKETME_WIFI } from 'redux/modules/socketme';
 
-@connect( state => ({devices: state.socketme[SOCKETME_WIFI]}) )
+@connect(state => ({ devices: state.socketme[SOCKETME_WIFI] }))
 export default class WifiBar extends Component {
   static propTypes = {
     devices: PropTypes.array
@@ -13,7 +13,7 @@ export default class WifiBar extends Component {
   }
 
   renderDevices() {
-    const {devices} = this.props;
+    const { devices } = this.props;
     return devices.map((_device, nr) => {
       return _device.map((_dev, _nr) => {
         // BSSID, SSID, level

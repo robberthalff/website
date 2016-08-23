@@ -7,13 +7,17 @@ const initialState = {
 };
 
 export default function post(state = initialState, action = {}) {
+  console.log('ACTION TYPE', action);
+  console.log('POST STATE', state);
   switch (action.type) {
     case LOAD:
+      console.log('CURRENT STATE', state);
       return {
         ...state,
         loading: true
       };
     case LOAD_SUCCESS:
+      console.log('IT LOADED!');
       return {
         ...state,
         loading: false,
@@ -21,6 +25,7 @@ export default function post(state = initialState, action = {}) {
         data: action.result
       };
     case LOAD_FAIL:
+      console.log('WE ARE FAILING', action, state);
       return {
         ...state,
         loading: false,
@@ -33,6 +38,7 @@ export default function post(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
+  console.log('isLoaded', globalState.post);
   return globalState.post && globalState.post.loaded;
 }
 

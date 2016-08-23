@@ -1,16 +1,16 @@
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {load as loadCategories } from 'redux/modules/content/categories';
-import React, {Component, PropTypes} from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { load as loadCategories } from 'redux/modules/content/categories';
+import React, { Component, PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 @connect(
   state => ({
     categories: state.categories.data
   }),
   dispatch => bindActionCreators({
-    loadCategories: loadCategories
+    loadCategories
   }, dispatch))
 export default class Categories extends Component {
   static propTypes = {

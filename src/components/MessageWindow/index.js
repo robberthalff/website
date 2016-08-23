@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import {Panel, Button} from 'react-bootstrap';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { Panel, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import {
   SOCKETME_MESSAGE,
@@ -14,7 +14,7 @@ import {
     messages: state.socketme[SOCKETME_MESSAGE],
     connected: state.socketme[SOCKETME_CONNECTED]
   }),
-  dispatch => bindActionCreators({addMessage}, dispatch))
+  dispatch => bindActionCreators({ addMessage }, dispatch))
 export default class MessageWindow extends Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
@@ -27,7 +27,7 @@ export default class MessageWindow extends Component {
 
   sendMessage = (ev) => {
     ev.preventDefault();
-    const {message} = this.refs;
+    const { message } = this.refs;
     if (message.value) {
       this.props.addMessage(SOCKETME_MESSAGE, {
         id: 1,
@@ -39,7 +39,7 @@ export default class MessageWindow extends Component {
   }
 
   renderMessages = () => {
-    const {messages} = this.props;
+    const { messages } = this.props;
     return messages.map((msg, nr) => {
       return (
         <p key={nr}>{msg.message} {msg.createdAt}</p>
@@ -49,11 +49,11 @@ export default class MessageWindow extends Component {
 
   render() {
     const styles = require('./style.scss');
-    const {connected} = this.props;
+    const { connected } = this.props;
     const windowClass = classNames(
       'window',
       'messageWindow',
-      {disabled: !connected[0]}
+      { disabled: !connected[0] }
     );
     console.log('WINDOW CLASS', windowClass);
     return (
@@ -69,7 +69,8 @@ export default class MessageWindow extends Component {
               type="submit"
               bsStyle="primary"
               bsSize="xsmall"
-              onClick={this.sendMessage}>
+              onClick={this.sendMessage}
+            >
               Send
             </Button>
           </Panel>

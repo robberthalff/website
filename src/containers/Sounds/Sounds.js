@@ -1,9 +1,9 @@
 // import {bindActionCreators} from 'redux';
 // import {connect} from 'react-redux';
 // import {load as loadSounds } from 'redux/modules/content/sounds';
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
-import {Well, Row, Col} from 'react-bootstrap';
+import { Well, Row, Col } from 'react-bootstrap';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import Player from './Player/Player';
 import { Icons } from 'react-soundplayer/components';
@@ -22,7 +22,7 @@ export default class Sounds extends Component {
     const styles = require('./Sounds.scss');
     return (
       <div className={styles.sounds}>
-        <Helmet title="SoundLog"/>
+        <Helmet title="SoundLog" />
         <div className="container">
           <div className="window soundWindow center-block">
             <div className="panel">

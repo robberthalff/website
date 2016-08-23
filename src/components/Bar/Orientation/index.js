@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {SOCKETME_ORIENTATION} from 'redux/modules/socketme';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { SOCKETME_ORIENTATION } from 'redux/modules/socketme';
 
-@connect( state => ({orientation: state.socketme[SOCKETME_ORIENTATION]}) )
+@connect(state => ({ orientation: state.socketme[SOCKETME_ORIENTATION] }))
 export default class OrientationBar extends Component {
   static propTypes = {
     orientation: PropTypes.array
@@ -13,7 +13,7 @@ export default class OrientationBar extends Component {
   }
 
   renderDevices() {
-    const {orientation} = this.props;
+    const { orientation } = this.props;
     const _o = orientation.pop();
     if (_o) {
       // magneticHeading, trueHeading, accuracy, timeStamp
