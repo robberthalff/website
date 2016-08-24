@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import { div } from 'react-dom';
-import getDataDependencies from '../getDataDependencies';
+import getDataDependencies from '../../src/helpers/getDataDependencies';
 
 describe('getDataDependencies', () => {
   let getState;
