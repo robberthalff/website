@@ -1,4 +1,4 @@
-FROM node:5.5-slim
+FROM node
 
 ENV CONTENT_HOST api.robberthalff.com
 ENV CONTENT_PORT 80
